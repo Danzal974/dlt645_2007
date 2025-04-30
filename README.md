@@ -1,3 +1,4 @@
-# DLT645-2007 多功能电能表通信协议解析C语言实现
-* 实现对dlt645 2007版规约想着数据类型的定义
-* 提供帧数据的封装及解析相关api  
+# DLT645-2007 Analyse du protocole de communication d'un compteur d'énergie multifonctionnel Mise en œuvre en langage C
+* Mettre en œuvre la définition du statut dlt645 version 2007 en pensant aux types de données.
+* Fournir une interface utilisateur pour l'encapsulation et l'analyse des données de trame.
+

@@ -11,13 +11,7 @@ int show_ruler_info(unsigned long inRulerID);
 void pack_d07_frame(unsigned long inRulerID);
 void unpack_d07_frame_test(int argc, char*argv[]);
 int show_all_valid_ruler_info();
-void test_all_ruler_d07_meter(); // 实际测试Dlt645 2007 国标表
-	
-
-
-
-
-
+void test_all_ruler_d07_meter(); // Actual Test Dlt645 2007 National Standard Table // 实际测试Dlt645 2007 国标表
 
 void debug_switch(int show)
 {
@@ -33,7 +27,7 @@ char helpinfo[] =
 		"--all, show all valid ruler infor\n"
 	};
 
-/* 主函数 */
+/* main function 主函数 */
 int main(int argc, char *argv[])
 {
 
@@ -75,7 +69,7 @@ int main(int argc, char *argv[])
 					
 				
 			case 'i':
-				ulRulerID = (unsigned long)strtol(optarg,NULL,16); // 将字符串十六进制数转换为整数
+				ulRulerID = (unsigned long)strtol(optarg, NULL, 16); // Convert a string of hexadecimal numbers to integers 将字符串十六进制数转换为整数
 				ret = show_ruler_info(ulRulerID);
 				if(ret != E_D07_OK)
 				{
@@ -84,7 +78,7 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'p':
-				ulRulerID = (unsigned long)strtol(optarg,NULL,16); // 将字符串十六进制数转换为整数
+				ulRulerID = (unsigned long)strtol(optarg, NULL, 16); // Convert a string hexadecimal number to an integer. 将字符串十六进制数转换为整数
 				pack_d07_frame(ulRulerID);
 				break;
 	
@@ -99,7 +93,7 @@ int main(int argc, char *argv[])
 				if(!strcmp("all", longOpts[longIndex].name))
 				{	
 					num = show_all_valid_ruler_info();
-					printf("一共%d条有效的规约\n", num);
+					printf(" - %d valid statute in total\n", num); // 一共%d条有效的规约\n
 				}
 				break;
 				
@@ -162,23 +156,23 @@ void unpack_d07_frame_test(int argc, char*argv[])
 	debug_switch(D07_OFF);
 	if(ret != E_D07_OK)
 	{
-		printf("\n  解析出错! (error = %d : ",ret);
+		printf("\n Parsing error! (error = %d : ", ret); // 解析出错!
 		switch(ret)
 		{
 			case E_D07_ERRO_FRAME_UNCOMP:
-				printf("不完整的帧数据)\n");
+				printf("Incomplete frame data)\n"); // 不完整的帧数据)
 				break;
 
 			case E_D07_ERRO_FRAME_0x68:
-				printf("起始符 0x68 的位置不对)\n");
+				printf("Incorrect position of start character 0x68)\n"); // 起始符 0x68 的位置不对)
 				break;
 				
 			case E_D07_ERRO_FRAME_CHECK_SUM:
-				printf("测试帧检验和不对)\n");
+				printf("Test frame checksum incorrect)\n "); // 测试帧检验和不对)
 				break;
-				
+
 			case E_D07_ERRO_FRAME_END_0x16:
-				printf("测试帧结束符 0x16 不对)\n");
+				printf("Incorrect test frame terminator 0x16)\n "); // 测试帧结束符 0x16 不对)
 				break;
 			default:
 				break;
@@ -187,8 +181,8 @@ void unpack_d07_frame_test(int argc, char*argv[])
 		printf("\n");
 		return;
 	}
-	
-	// 显示结果
+
+	// Display results 显示结果
 	printf("/------------------unpack result-------------------\\\n");
 	printf("\n<1> - ruler info:\n");
 	show_ruler_info(stUnPack.ruler_id);
@@ -201,44 +195,44 @@ void unpack_d07_frame_test(int argc, char*argv[])
 	printf(" address\t=  %s\n", stUnPack.address);
 	printf("\n<3> - data fields \n");
 	if(stUnPack.flag == E_D07_UNPD_FLG_OK)
-	{
-		printf("正确的回答:\n");
+	{
+
+		printf("Correct answer :\n"); // 正确的回答
 	}
 	else if(stUnPack.flag == E_D07_UNPD_FLG_ERROR_OK)
-	{
-		printf("异常的回答:\n");
+	{
+
+		printf("Abnormal answer :\n"); // 异常的回答
 	}
 	printf("%s\n", g_out_data_07);
 
 	printf("\n<4> - remark:\n\n\t");
 	if(stUnPack.ctrl_s.direct == E_D07_CTRL_DIR_M2S)
 	{
-		printf("主站到从站的");
+		printf("Master to slave"); // 主站到从站的
 		if(E_D07_CTRL_READ_DATA == stUnPack.ctrl_s.funcode)
 		{
-			printf("读数据");
+			printf("Read data"); // 读数据
 		}
 		else if(E_D07_CTRL_WRITE_DATA == stUnPack.ctrl_s.funcode)
 		{
-			printf("写数据");
+			printf("Write data"); // 写数据
 		}
-		printf("请求\n\n");
+		printf("Request\n\n"); // 请求
 	}
 	else
-	{		
-		printf("从站到主站的");
+	{
+		printf("Slave to Master"); // 从站到主站的
 		if(E_D07_CTRL_READ_DATA == stUnPack.ctrl_s.funcode)
 		{
-			printf("对读数据请求的响应");
+			printf("Response to read data request"); // 对读数据请求的响应
 		}
 		else if(E_D07_CTRL_WRITE_DATA == stUnPack.ctrl_s.funcode)
 		{
-			printf("对写数据成功的响应");
+			printf("Response to successful write data"); // 对写数据成功的响应
 		}
 		printf("\n\n");
 	}
-
-
 
 	printf("\\------------------unpack result-------------------/\n");
 }
@@ -255,15 +249,15 @@ void pack_d07_frame(unsigned long inRulerID)
 	int ret = get_d07_ruler_info(inRulerID, &info);
 	if(ret != E_D07_OK)	
 	{
-		printf("不存在的规规约类型\n\n");
+		printf("Non-existent statute type\n\n"); // 不存在的规规约类型
 		return ;
 	}
 
 	unsigned char ucCtrl = 0;
 	S_D07_CTRL_CODE stCtrl = {0};
 	int dir = 0;
-	
-	char addr[64] = {0}; // 地址
+
+	char addr[64] = {0}; // Address 地址
 	S_D07_PACK_FRAME pack_frame = {0};
 	int length = 0;
 	char buffer[256] = {0};
@@ -271,21 +265,21 @@ void pack_d07_frame(unsigned long inRulerID)
 	char user[256] = {0};
 	F_D07_RULER_TRANS func = NULL;
 	printf("\n-------------------------------------------------------------------");
-	printf("\n%d - 输入地址(小于等于12位):\n\n\taddress <<  ", num++);
+	printf("\n%d - Input address (less than or equal to 12 bits):\n\n\taddress <<  ", num++); // 输入地址(小于等于12位)
 	scanf("%s",addr);
 
-	// 方向
-	printf("\n%d - 传输方向:   主站到从站(0)  从站到主站(1)\n\n\tdirect << ", num++);
+	// Direction 方向
+	printf("\n%d - Transmission direction: Master to slave (0) Slave to master (1) \n\n\tdirect << ", num++); // 传输方向:   主站到从站(0)  从站到主站(1)
 	scanf("%d", &dir);
 	if(dir != 0 && dir != 1)
 	{
-		printf("\n输入错误\n");
+		printf("\n Input error\n"); // 输入错误
 		return;
 	}
 
 	stCtrl.direct = (E_D07_CTRL_DIR)dir;
 
-	// 主站到从站
+	// Master to slave 主站到从站
 	if(E_D07_CTRL_DIR_M2S == dir)
 	{
 		if(info.rdwr == E_D07_RDWR_READ_ONLY)
@@ -296,8 +290,8 @@ void pack_d07_frame(unsigned long inRulerID)
 		}
 		else if(info.rdwr == E_D07_RDWR_READ_WRITE)
 		{
-			//功能码
-			printf("\n%d - 功能码:  读数据(0) 写数据(1)\n operate << ",num++);
+			// Function codes 功能码
+			printf("\n%d -  Function code: Read data(0) Write data(1)\n operate << ", num++); // 功能码:  读数据(0) 写数据(1)
 			scanf("%d", &dir);
 			if(dir == 0)
 			{
@@ -317,15 +311,15 @@ void pack_d07_frame(unsigned long inRulerID)
 			}
 			else
 			{
-				printf("\n输入错误\n");
+				printf("\ninput error\n"); // 输入错误
 				return;
 			}
 		}
 	}
-	else	// 从站到主站
+	else // Slave to master 从站到主站
 	{
-		printf("\n%d - 数据域内容:\n\n",num++);
-		// 正确的应答
+		printf("\n%d - Data field content :\n\n", num++); // 数据域内容
+		// Correct response 正确的应答
 		func = info.func;
 		debug_switch(D07_ON);
 		func(E_D07_TRANS_U2F, user, data);
@@ -333,11 +327,11 @@ void pack_d07_frame(unsigned long inRulerID)
 		stCtrl.funcode = E_D07_CTRL_READ_DATA;
 		pack_frame.data = data;
 		pack_frame.data_len = info.len + 4;
-		// 异常的应答
+		// Abnormal response 异常的应答
 	}
 
-	ret = trans_d07ctrl_struct2char(&ucCtrl, &stCtrl); //将结构封装成字节
-	
+	ret = trans_d07ctrl_struct2char(&ucCtrl, &stCtrl); // Encapsulate structure into bytes 将结构封装成字节
+
 	if(ret != E_D07_OK)
 	{
 		printf("\ntrans_d07ctrl_struct2char failed %d\n", ret);
@@ -360,8 +354,7 @@ void pack_d07_frame(unsigned long inRulerID)
 	printf(" ctrl\t=  0x%02X\n", ucCtrl);
 	printf(" addr\t=  %s\n", addr);
 
-	
-	//显示帧内容
+	// Display frame contents 显示帧内容
 	printf("\n%d - frame:\n\n\t", num++);
 	show_packet(length, buffer);
 	printf("\n\n-------------------------------------------------------------------\n");
@@ -537,7 +530,7 @@ int show_ruler_info(unsigned long inRulerID)
 	}
 	else
 	{
-		//printf("\n---------------------[%d]---------------------\n\n", ++g_num);					
+		// printf("\n---------------------[%d]---------------------\n\n", ++g_num);
 		printf(" id\t=  0x%08X :", inRulerID);
 		printf(" [%02X][%02X][%02X][%02X]\n", ucDi3, ucDi2, ucDi1, ucDi0);
 	
@@ -572,7 +565,7 @@ int show_ruler_info(unsigned long inRulerID)
 				printf(" rdwr\t=  write only\n");
 			}
 
-			//format
+			// format
 			printf(" format\t=  %s\n", formats[info.format]);
 
 
@@ -596,7 +589,7 @@ void show_packet(int buflen, char* buf)
     
 	int j = buflen;
 	int i;
-	//printf("packet length :%d\n packet content : ",j);
+	// printf("packet length :%d\n packet content : ",j);
 	for(i = 0; i < j;i++)
 	{
 		printf("%02X ", (unsigned char)buf[i]);
@@ -605,7 +598,8 @@ void show_packet(int buflen, char* buf)
 
 
 void test_all_ruler_d07_meter()
-{
+{
+
 
 
 }

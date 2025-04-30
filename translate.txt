@@ -1,0 +1,70 @@
+// 上(t)次定时冻结时间  // Last (t) timed freeze time
+// 上(t)次定时冻结正向有功电能数据  // Freeze forward active energy data last (t) time
+// 上(t)次定时冻结反向有功电能数据  // Freeze reverse active energy data for last (t) timings
+// 上(t)次定时冻结组合无功1电能数据  // Combined reactive1 energy data frozen at last (t) timings
+// 上(t)次定时冻结组合无功2电能数据  // Freeze combined reactive 2 energy data on (t) timer
+// 上(t)次定时冻结第一象限无功电能数据  // Freeze first quadrant reactive energy data on (t) timer
+// 上(t)次定时冻结第二象限无功电能数据  // Freeze the second quadrant reactive energy data on (t) timer up
+// 上(t)次定时冻结第三象限无功电能数据  // Freeze the third quadrant reactive energy data on (t) timer up
+// 上(t)次定时冻结第四象限无功电能数据  // Freeze the fourth quadrant reactive energy data on (t) timer
+// 上(t)次定时冻结正向有功最大需量数据及发生时间数据  // Freeze forward active maximum demand data and time of occurrence data on (t) timer up
+// 上(t)次定时冻结反向有功最大需量数据及发生时间数据  // Freeze reverse active maximum demand data and time of occurrence data on (t) timer
+// 上(t)次定时冻结变量数据  // Freeze the variable data on the last (t) timer.
+// 上(t)次定时冻结数据块  // Freeze block of data for the last (t) time.
+
+
+
+
+// Last (t) instantaneous freeze time
+// Last (t) instantaneous freeze of forward active energy data
+// Freeze reverse active energy data last (t) instantaneously
+// Combined reactive energy data frozen at last (t) instantaneous time
+// Freeze combined reactive energy data for the last (t) time instantaneously
+// Freeze the first quadrant reactive energy data on the upper (t) time instant
+// Freeze the second quadrant reactive energy data on the last (t) time instant
+// Freeze the third quadrant reactive energy data at the upper (t) time instant
+// Freeze quadrant 4 reactive energy data for the upper (t) time interval
+// Freeze positive active maximum demand data and time of occurrence data for the upper (t) instantaneous time period
+// Freeze upper (t) instantaneous reverse active maximum demand data and time of occurrence data
+// Freeze the block of data for the last (t) time instantaneously.
+// Last (t) switching time between two time zone tables
+// Previously (t) switching of two time zone meters with positive active energy data
+// Up (t) times two time zone meters switch reverse active energy data 
+// Up (t) times two time zone meters switch reverse active energy data
+// Up (t) times two time zone meters switch combined reactive energy data 
+// Up (t) times two time zone meters switch combined reactive energy data
+// Up (t) times Two time zone meters switch combined reactive energy data 
+// Up (t) times Two time zone meters switch combined reactive energy data
+// Up (t) times Two time zone meters switching first quadrant reactive energy data
+// Up (t) times Two time zone meters switch second quadrant reactive energy data 
+// Up (t) times Two time zone meters switch second quadrant reactive energy data
+// Up (t) times Two time zone meters switch the third quadrant reactive energy data 
+// Up (t) times Two time zone meters switch the third quadrant reactive energy data 
+// Up (t) times Two time zone meters switch the third quadrant reactive energy data
+// Up (t) time Two time zone meters switching 4th quadrant reactive energy data
+// Up (t) times Two sets of time zone meters switching positive active maximum demand and time of occurrence data
+// Up (t) times Two sets of time zone meters switching reverse active maximum demand and occurrence time data
+// Up (t) times Two sets of time zone tables switching variable data
+// Up (t) times Two time zone tables switching data blocks
+// Up (t) times Two sets of time-of-day table switching times
+// Up (t) times Two sets of time-of-day meters switching positive active energy data 
+// Up (t) times Two sets of time-of-day meters switching positive active energy data
+// Up (t) times two time-of-day meters switch reverse active energy data 
+// Up (t) times two time-of-day meters switch reverse active energy data
+// Up (t) times the two time-of-day meters are switched to combined reactive energy data.
+// Up (t) times Two daytime schedules are switched to combined reactive energy data
+// Up (t) times Two time-of-day meters switch the first quadrant reactive energy data 
+// Up (t) times Two time-of-day meters switch the combined reactive energy data 
+// Up (t) times Two time-of-day meters switch the combined reactive energy data
+// Up (t) times Two time-of-day meters toggle second quadrant reactive energy data 
+// Up (t) times Two time-of-day meters toggle second quadrant reactive energy data
+// Up (t) times Two time-of-day meters toggle the third quadrant reactive energy data
+// Up (t) times two daytime meters switch to quadrant 4 reactive energy data
+// Up (t) times Two sets of time-of-day meters switching positive active maximum demand and time of occurrence data
+// Up (t) times Two sets of time-of-day meters toggle the maximum reverse active demand and time-of-day data.
+// Up (t) times the two daily time tables switch the variable data.
+// Switching data blocks between the two daily time schedules 
+// up (t) times
+
+
+
