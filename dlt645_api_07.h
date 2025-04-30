@@ -116,18 +116,18 @@ typedef void*  FRWK_HANDLE;
 /* 返回值类型 列表 */
 typedef enum
 {
-    E_D07_OK = 0,         /* 返回OK */
-    E_D07_ERRO_NULL,      /* 指针为空 */
-    E_D07_ERRO_UNKOWN_ID, /* 未知规约ID */
-    E_D07_ERRO_PARA_NONE, /* 不存在 */
+    E_D07_OK = 0,         /* 返回OK */ /* Returns OK */
+    E_D07_ERRO_NULL,      /* 指针为空 *//* Pointer is null */
+    E_D07_ERRO_UNKOWN_ID, /* 未知规约ID *//* Unknown statute ID */
+    E_D07_ERRO_PARA_NONE, /* 不存在 *//* Does not exist */
     E_D07_ERRO_PARA_OUT_RANGE,
 
     // check frame
-    E_D07_ERRO_FRAME_UNCOMP,    /* 不完整的帧数据 */
-    E_D07_ERRO_FRAME_0x68,      /* 测试帧帧起始符 0x68 的位置不对 */
-    E_D07_ERRO_FRAME_CHECK_SUM, /* 测试帧检验和不对 */
-    E_D07_ERRO_FRAME_END_0x16,  /* 测试帧结束符 0x16 不对 */
-    E_D07_ERRO_NONE_FRAME,      /* 没有找到帧 */
+    E_D07_ERRO_FRAME_UNCOMP,    /* 不完整的帧数据 */ /* Incomplete frame data */
+    E_D07_ERRO_FRAME_0x68,      /* 测试帧帧起始符 0x68 的位置不对 */ /* Incorrect position of test frame start 0x68 */
+    E_D07_ERRO_FRAME_CHECK_SUM, /* 测试帧检验和不对 */ /* Incorrect test frame checksum */
+    E_D07_ERRO_FRAME_END_0x16,  /* 测试帧结束符 0x16 不对 */ /* Incorrect test frame end symbol 0x16 */
+    E_D07_ERRO_NONE_FRAME,      /* 没有找到帧 */ /* Frame not found */
 
 } eD07Err;
 
