@@ -136,23 +136,23 @@ typedef enum
 {
     E_D07_RULER_TYPE_UNKNOWN = 0, // 未知的规约类型
 
-    /* 标准协议 */
+    /* 标准协议 */    
     E_D07_RULER_TYPE_A1_MIN,
 
     /* [00] [00] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_COMB_HAVE_POWER_TOTAL = E_D07_RULER_TYPE_A1_MIN, // 组合有功总电能
-    E_D07_RULER_TYPE_COMB_HAVE_POWER_RATE,                            // 组合有功费率电能
-    E_D07_RULER_TYPE_COMB_HAVE_POWER_BLOCK,                           // 组合有电能数据块
+    E_D07_RULER_TYPE_COMB_HAVE_POWER_TOTAL = E_D07_RULER_TYPE_A1_MIN, // 组合有功总电能 // Combined total active energy
+    E_D07_RULER_TYPE_COMB_HAVE_POWER_RATE,                            // 组合有功费率电能 // Combined active rate energy
+    E_D07_RULER_TYPE_COMB_HAVE_POWER_BLOCK,                           // 组合有电能数据块 // Combined active energy data block
 
     /* [00] [01] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_FORTH_HAVE_POWER_TOTAL, // 正向有功总电能
-    E_D07_RULER_TYPE_FORTH_HAVE_POWER_RATE,  // 正向有功费率电能
-    E_D07_RULER_TYPE_FORTH_HAVE_POWER_BLOCK, // 正向有功电能数据块
+    E_D07_RULER_TYPE_FORTH_HAVE_POWER_TOTAL, // 正向有功总电能 // Total positive active energy
+    E_D07_RULER_TYPE_FORTH_HAVE_POWER_RATE,  // 正向有功费率电能 // Positive active rate energy
+    E_D07_RULER_TYPE_FORTH_HAVE_POWER_BLOCK, // 正向有功电能数据块 // Positive active energy data block
 
     /* [00] [02] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_BACK_HAVE_POWER_TOTAL, // 反向有功总电能
-    E_D07_RULER_TYPE_BACK_HAVE_POWER_RATE,  // 反向有功费率电能
-    E_D07_RULER_TYPE_BACK_HAVE_POWER_BLOCK, // 反向有功电能数据块
+    E_D07_RULER_TYPE_BACK_HAVE_POWER_TOTAL, // 反向有功总电能 // Reverse total active energy
+    E_D07_RULER_TYPE_BACK_HAVE_POWER_RATE,  // 反向有功费率电能 // Reverse active rate energy
+    E_D07_RULER_TYPE_BACK_HAVE_POWER_BLOCK, // 反向有功电能数据块 // Reverse active energy data block
 
     /* [00] [03] [(00~FF)] [00] */
     E_D07_RULER_TYPE_COMB_NONE_1_POWER_TOTAL, // 组合无功1总电能
