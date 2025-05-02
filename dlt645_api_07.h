@@ -87,56 +87,58 @@ typedef void*  FRWK_HANDLE;
 /* 宏定义 **/
 #define NAME_LEN              128   
 #define UNKNOWN_RULER_ID     0XFFFFFFFF
-#define D07_ADDR_LEN 12                    // 地址长
-#define D07_DATA_MAX_NR 240                // dlt645 2007 最大数据域字节数算规约ID
-#define D07_DATA_MAX (D07_DATA_MAX_NR + 4) // dlt645 2007 最大数据域字节数
-#define D07_FRAME_LEN_MIN 12               // DLT645 2007 最小帧字节数
+#define D07_ADDR_LEN 12                    // 地址长  address length
+#define D07_DATA_MAX_NR 240                // dlt645 2007 最大数据域字节数算规约ID   Maximum data field bytes count statute ID
+#define D07_DATA_MAX (D07_DATA_MAX_NR + 4) // dlt645 2007 最大数据域字节数   Maximum data field bytes
+#define D07_FRAME_LEN_MIN 12               // DLT645 2007 最小帧字节数   Minimum frame bytes
 
 /*功能码 2007*/
-#define D07_CTRL_RESV                                0x00     // 保留
-#define D07_CTRL_SYNC_TIME                            0x08     // 广播校时
-#define D07_CTRL_READ_DATA                            0x11    // 读数据
-#define D07_CTRL_READ_AFTERDATA                        0x12    // 读后续数据
-#define D07_CTRL_READ_ADDR                            0x13    // 读通信地址
-#define D07_CTRL_WRITE_DATA                            0x14    // 写数据
-#define D07_CTRL_WRITE_ADDR                            0x15    // 写通信地址
-#define D07_CTRL_FREEZ_COMM                            0x16    // 冻结命令
-#define D07_CTRL_MODIFY_BAUD                        0x17    // 修改通信速率
-#define D07_CTRL_MODIFY_PASSWORD                    0x18    // 修改密码
-#define D07_CTRL_CLEAR_MAXDEMAND                    0x19    // 最大需量清零
-#define D07_CTRL_CLEAR_METER                        0x1A    // 电表清零
-#define D07_CTRL_CLEAR_EVENT                        0x1B    // 事件清零
-#define D07_CTRL_COMM                                0x1C    // 控制命令
+#define D07_CTRL_RESV 0x00            // 保留  Retention
+#define D07_CTRL_SYNC_TIME 0x08       // 广播校时  Broadcast Timing
+#define D07_CTRL_READ_DATA 0x11       // 读数据  Read data
+#define D07_CTRL_READ_AFTERDATA 0x12  // 读后续数据  Read Subsequent Data
+#define D07_CTRL_READ_ADDR 0x13       // 读通信地址  Read communication address
+#define D07_CTRL_WRITE_DATA 0x14      // 写数据  Write Data
+#define D07_CTRL_WRITE_ADDR 0x15      // 写通信地址  Write communication address
+#define D07_CTRL_FREEZ_COMM 0x16      // 冻结命令  Freeze command
+#define D07_CTRL_MODIFY_BAUD 0x17     // 修改通信速率  Modify communication rate
+#define D07_CTRL_MODIFY_PASSWORD 0x18 // 修改密码  Modify password
+#define D07_CTRL_CLEAR_MAXDEMAND 0x19 // 最大需量清零  Zeroing the maximum demand
+#define D07_CTRL_CLEAR_METER 0x1A     // 电表清零  Zeroing the meter
+#define D07_CTRL_CLEAR_EVENT 0x1B     // 事件清零  Event Zeroing
+#define D07_CTRL_COMM 0x1C            // 控制命令  Control Command
 
+/** 宏定义 macro definition  */
 
-
-
-/** 宏定义 */
-
-/* 返回值类型 列表 */
+/* 返回值类型 列表  Return Value Type List */
 typedef enum
 {
-    E_D07_OK = 0,         /* 返回OK */ /* Returns OK */
-    E_D07_ERRO_NULL,      /* 指针为空 *//* Pointer is null */
-    E_D07_ERRO_UNKOWN_ID, /* 未知规约ID *//* Unknown statute ID */
-    E_D07_ERRO_PARA_NONE, /* 不存在 *//* Does not exist */
+    E_D07_OK = 0,         /* 返回OK  Returns OK */
+    E_D07_ERRO_NULL,      /* 指针为空  Pointer is null */
+    E_D07_ERRO_UNKOWN_ID, /* 未知规约ID  Unknown statute ID */
+    E_D07_ERRO_PARA_NONE, /* 不存在  Does not exist */
     E_D07_ERRO_PARA_OUT_RANGE,
 
     // check frame
-    E_D07_ERRO_FRAME_UNCOMP,    /* 不完整的帧数据 */ /* Incomplete frame data */
-    E_D07_ERRO_FRAME_0x68,      /* 测试帧帧起始符 0x68 的位置不对 */ /* Incorrect position of test frame start 0x68 */
-    E_D07_ERRO_FRAME_CHECK_SUM, /* 测试帧检验和不对 */ /* Incorrect test frame checksum */
-    E_D07_ERRO_FRAME_END_0x16,  /* 测试帧结束符 0x16 不对 */ /* Incorrect test frame end symbol 0x16 */
-    E_D07_ERRO_NONE_FRAME,      /* 没有找到帧 */ /* Frame not found */
+    E_D07_ERRO_FRAME_UNCOMP,
+    /* 不完整的帧数据  Incomplete frame data */
+    E_D07_ERRO_FRAME_0x68,
+    /* 测试帧帧起始符 0x68 的位置不对  Incorrect position of test frame start 0x68 */
+    E_D07_ERRO_FRAME_CHECK_SUM,
+    /* 测试帧检验和不对  Incorrect test frame checksum */
+    E_D07_ERRO_FRAME_END_0x16,
+    /* 测试帧结束符 0x16 不对  Incorrect test frame end symbol 0x16 */
+    E_D07_ERRO_NONE_FRAME,
+    /* 没有找到帧  Frame not found */
 
 } eD07Err;
 
-/* dlt645 2007规约类型 */
+/* dlt645 2007规约类型 Types of statutes */
 typedef enum
 {
-    E_D07_RULER_TYPE_UNKNOWN = 0, // 未知的规约类型
+    E_D07_RULER_TYPE_UNKNOWN = 0, // 未知的规约类型  Unknown type of statute
 
-    /* 标准协议 */    
+    /* 标准协议  standard protocol */
     E_D07_RULER_TYPE_A1_MIN,
 
     /* [00] [00] [(00~FF)] [00] */
@@ -155,127 +157,129 @@ typedef enum
     E_D07_RULER_TYPE_BACK_HAVE_POWER_BLOCK, // 反向有功电能数据块 // Reverse active energy data block
 
     /* [00] [03] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_COMB_NONE_1_POWER_TOTAL, // 组合无功1总电能
-    E_D07_RULER_TYPE_COMB_NONE_1_POWER_RATE,  // 组合无功1费率电能
-    E_D07_RULER_TYPE_COMB_NONE_1_POWER_BLOCK, // 组合无功1电能数据块
+    E_D07_RULER_TYPE_COMB_NONE_1_POWER_TOTAL, // 组合无功1总电能  Combined reactive 1 total energy
+    E_D07_RULER_TYPE_COMB_NONE_1_POWER_RATE,  // 组合无功1费率电能  Combined reactive 1 rate energy
+    E_D07_RULER_TYPE_COMB_NONE_1_POWER_BLOCK, // 组合无功1电能数据块  Combined reactive 1 energy data block
 
     /* [00] [04] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_COMB_NONE_2_POWER_TOTAL, // 组合无功2总电能
-    E_D07_RULER_TYPE_COMB_NONE_2_POWER_RATE,  // 组合无功2费率电能
-    E_D07_RULER_TYPE_COMB_NONE_2_POWER_BLOCK, // 组合无功2电能数据块
+    E_D07_RULER_TYPE_COMB_NONE_2_POWER_TOTAL, // 组合无功2总电能  Combined reactive 2 total energy
+    E_D07_RULER_TYPE_COMB_NONE_2_POWER_RATE,  // 组合无功2费率电能  Combined reactive 2 rate energy
+    E_D07_RULER_TYPE_COMB_NONE_2_POWER_BLOCK, // 组合无功2电能数据块  Combined reactive 2 energy data block
 
     /* [00] [05] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_TOTAL, // 第一象限无功总电能
-    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_RATE,  // 第一象限无功费率电能
-    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_BLOCK, // 第一象限无功电能数据块
+    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_TOTAL, // 第一象限无功总电能  First Quadrant total reactive rate energy
+    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_RATE,  // 第一象限无功费率电能  First Quadrant Reactive Rate Energy
+    E_D07_RULER_TYPE_QUAD_1_NONE_POWER_BLOCK, // 第一象限无功电能数据块  First Quadrant Reactive Energy Data Block
 
     /* [00] [06] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_TOTAL, // 第二象限无功总电能
-    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_RATE,  // 第二象限无功费率电能
-    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_BLOCK, // 第二象限无功电能数据块
+    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_TOTAL, // 第二象限无功总电能  Second Quadrant total reactive rate energy
+    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_RATE,  // 第二象限无功费率电能  Second Quadrant Reactive Rate Energies
+    E_D07_RULER_TYPE_QUAD_2_NONE_POWER_BLOCK, // 第二象限无功电能数据块  Second Quadrant Reactive Energy Data Block
 
     /* [00] [07] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_TOTAL, // 第三象限无功总电能
-    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_RATE,  // 第三象限无功费率电能
-    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_BLOCK, // 第三象限无功电能数据块
+    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_TOTAL, // 第三象限无功总电能  Third Quadrant total reactive rate energy
+    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_RATE,  // 第三象限无功费率电能  Third Quadrant Reactive Rate Energies
+    E_D07_RULER_TYPE_QUAD_3_NONE_POWER_BLOCK, // 第三象限无功电能数据块  Third Quadrant Reactive Energy Data Block
 
     /* [00] [08] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_TOTAL, // 第四象限无功总电能
-    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_RATE,  // 第四象限无功费率电能
-    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_BLOCK, // 第四象限无功电能数据块
+    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_TOTAL, // 第四象限无功总电能   Quadrant 4 Total Reactive Rate Energy
+    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_RATE,  // 第四象限无功费率电能   Quadrant 4 Reactive Rate Energies
+    E_D07_RULER_TYPE_QUAD_4_NONE_POWER_BLOCK, // 第四象限无功电能数据块   Quadrant 4 reactive energy data block
 
     /* [00] [09] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_TOTAL, // 正向视在总电能
-    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_RATE,  // 正向视在费率电能
-    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_BLOCK, // 正向视在电能数据块
+    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_TOTAL, // 正向视在总电能   Positive apparent total energy
+    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_RATE,  // 正向视在费率电能   Positive apparent rate energy
+    E_D07_RULER_TYPE_FORTH_APPARENT_POWER_BLOCK, // 正向视在电能数据块   Positive apparent energy data block
 
     /* [00] [0A] [(00~FF)] [00] */
-    E_D07_RULER_TYPE_BACK_APPARENT_POWER_TOTAL, // 反向视在总电能
-    E_D07_RULER_TYPE_BACK_APPARENT_POWER_RATE,  // 反向视在费率电能
-    E_D07_RULER_TYPE_BACK_APPARENT_POWER_BLOCK, // 反向视在电能数据块
+    E_D07_RULER_TYPE_BACK_APPARENT_POWER_TOTAL, // 反向视在总电能  Reverse apparent total energy
+    E_D07_RULER_TYPE_BACK_APPARENT_POWER_RATE,  // 反向视在费率电能  Reverse apparent rate energy
+    E_D07_RULER_TYPE_BACK_APPARENT_POWER_BLOCK, // 反向视在电能数据块  Reverse apparent energy data block
 
     /* [00] [80][00] [00] */
-    E_D07_RULER_TYPE_ASSO_POWER_TOTAL, // 关联总电能
+    E_D07_RULER_TYPE_ASSO_POWER_TOTAL, // 关联总电能  Total correlated power
 
     /* [00] [81][00] [00] */
-    E_D07_RULER_TYPE_FORTH_FUND_HAVE_POWER_TOTAL, // 正向有功基波总电能
+    E_D07_RULER_TYPE_FORTH_FUND_HAVE_POWER_TOTAL, // 正向有功基波总电能  Total positive active fundamental energy
 
     /* [00] [82][00] [00] */
-    E_D07_RULER_TYPE_BACK_FUND_HAVE_POWER_TOTAL, // 反向有功基波总电能
+    E_D07_RULER_TYPE_BACK_FUND_HAVE_POWER_TOTAL, // 反向有功基波总电能  Total Reverse Active Basewave Power
 
     /* [00] [83][00] [00] */
-    E_D07_RULER_TYPE_FORTH_HARM_HAVE_POWER_TOTAL, // 正向有功谐波总电能
+    E_D07_RULER_TYPE_FORTH_HARM_HAVE_POWER_TOTAL, // 正向有功谐波总电能  Total positive active harmonic energy
 
     /* [00] [84][00] [00] */
-    E_D07_RULER_TYPE_BACK_HARM_HAVE_POWER_TOTAL, // 反向有功谐波总电能
+    E_D07_RULER_TYPE_BACK_HARM_HAVE_POWER_TOTAL, // 反向有功谐波总电能  Total reverse active harmonic energy
 
     /* [00] [85][00] [00] */
-    E_D07_RULER_TYPE_COPR_LOSS_HAVE_POWER_COMP_TOTAL, // 铜损有功总电能补偿量
+    E_D07_RULER_TYPE_COPR_LOSS_HAVE_POWER_COMP_TOTAL, // 铜损有功总电能补偿量  Total active energy compensation for copper losses
 
     /* [00] [86][00] [00] */
-    E_D07_RULER_TYPE_CORE_LOSS_HAVE_POWER_COMP_TOTAL, // 铁损有功总电能补偿量
+    E_D07_RULER_TYPE_CORE_LOSS_HAVE_POWER_COMP_TOTAL, // 铁损有功总电能补偿量   Total active energy compensation for iron loss
 
     /* [00] [(15~9A)][00] [00] */
-    E_D07_RULER_TYPE_PHASE_A_FORTH_HAVE_POWER,          // A相正向有功电能
-    E_D07_RULER_TYPE_PHASE_A_BACK_HAVE_POWER,           // A相反向有功电能
-    E_D07_RULER_TYPE_PHASE_A_COMB_NONE_1_POWER,         // A相组合无功1电能
-    E_D07_RULER_TYPE_PHASE_A_COMB_NONE_2_POWER,         // A相组合无功2电能
-    E_D07_RULER_TYPE_PHASE_A_QUAD_1_NONE_POWER,         // A相第一象限无功电能
-    E_D07_RULER_TYPE_PHASE_A_QUAD_2_NONE_POWER,         // A相第二象限无功电能
-    E_D07_RULER_TYPE_PHASE_A_QUAD_3_NONE_POWER,         // A相第三象限无功电能
-    E_D07_RULER_TYPE_PHASE_A_QUAD_4_NONE_POWER,         // A相第四象限无功电能
-    E_D07_RULER_TYPE_PHASE_A_FORTH_APPARENT_POWER,      // A相正向视在电能
-    E_D07_RULER_TYPE_PHASE_A_BACK_APPARENT_POWER,       // A相反向视在电能
-    E_D07_RULER_TYPE_PHASE_A_ASSO_POWER,                // A相关联电能
-    E_D07_RULER_TYPE_PHASE_A_FORTH_FUND_HAVE_POWER,     // A相正向有功基波电能
-    E_D07_RULER_TYPE_PHASE_A_BACK_FUND_HAVE_POWER,      // A相反向有功基波电能
-    E_D07_RULER_TYPE_PHASE_A_FORTH_HARM_HAVE_POWER,     // A相正向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_A_BACK_HARM_HAVE_POWER,      // A相反向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_A_COPR_LOSS_HAVE_POWER_COMP, // A相铜损有功电能补偿量
-    E_D07_RULER_TYPE_PHASE_A_CORE_LOSS_HAVE_POWER_COMP, // A相铁损有功电能补偿量
+    E_D07_RULER_TYPE_PHASE_A_FORTH_HAVE_POWER,          // A相正向有功电能   A-phase positive active energy
+    E_D07_RULER_TYPE_PHASE_A_BACK_HAVE_POWER,           // A相反向有功电能   A-phase opposite active energy
+    E_D07_RULER_TYPE_PHASE_A_COMB_NONE_1_POWER,         // A相组合无功1电能   A-phase combined reactive 1 energy
+    E_D07_RULER_TYPE_PHASE_A_COMB_NONE_2_POWER,         // A相组合无功2电能   A-phase combined reactive 2 energy
+    E_D07_RULER_TYPE_PHASE_A_QUAD_1_NONE_POWER,         // A相第一象限无功电能  A-phase first quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_A_QUAD_2_NONE_POWER,         // A相第二象限无功电能  A-phase second quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_A_QUAD_3_NONE_POWER,         // A相第三象限无功电能  A-phase third quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_A_QUAD_4_NONE_POWER,         // A相第四象限无功电能  A-phase fourth quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_A_FORTH_APPARENT_POWER,      // A相正向视在电能  A-phase positive apparent energy
+    E_D07_RULER_TYPE_PHASE_A_BACK_APPARENT_POWER,       // A相反向视在电能  A opposite apparent energy
+    E_D07_RULER_TYPE_PHASE_A_ASSO_POWER,                // A相关联电能  A correlation energy
+    E_D07_RULER_TYPE_PHASE_A_FORTH_FUND_HAVE_POWER,     // A相正向有功基波电能  A-phase positive active fundamental energy
+    E_D07_RULER_TYPE_PHASE_A_BACK_FUND_HAVE_POWER,      // A相反向有功基波电能  A phase opposite active fundamental energy
+    E_D07_RULER_TYPE_PHASE_A_FORTH_HARM_HAVE_POWER,     // A相正向有功谐波电能  A-phase positive active harmonic energy
+    E_D07_RULER_TYPE_PHASE_A_BACK_HARM_HAVE_POWER,      // A相反向有功谐波电能  A phase opposite active harmonic energy
+    E_D07_RULER_TYPE_PHASE_A_COPR_LOSS_HAVE_POWER_COMP, // A相铜损有功电能补偿量  A-phase copper loss active energy compensation amount
+    E_D07_RULER_TYPE_PHASE_A_CORE_LOSS_HAVE_POWER_COMP, // A相铁损有功电能补偿量  A-phase iron loss active energy compensation quantity
 
     /* [00] [(29~AE)][00] [00] */
-    E_D07_RULER_TYPE_PHASE_B_FORTH_HAVE_POWER,          // B相正向有功电能
-    E_D07_RULER_TYPE_PHASE_B_BACK_HAVE_POWER,           // B相反向有功电能
-    E_D07_RULER_TYPE_PHASE_B_COMB_NONE_1_POWER,         // B相组合无功1电能
-    E_D07_RULER_TYPE_PHASE_B_COMB_NONE_2_POWER,         // B相组合无功2电能
-    E_D07_RULER_TYPE_PHASE_B_QUAD_1_NONE_POWER,         // B相第一象限无功电能
-    E_D07_RULER_TYPE_PHASE_B_QUAD_2_NONE_POWER,         // B相第二象限无功电能
-    E_D07_RULER_TYPE_PHASE_B_QUAD_3_NONE_POWER,         // B相第三象限无功电能
-    E_D07_RULER_TYPE_PHASE_B_QUAD_4_NONE_POWER,         // B相第四象限无功电能
-    E_D07_RULER_TYPE_PHASE_B_FORTH_APPARENT_POWER,      // B相正向视在电能
-    E_D07_RULER_TYPE_PHASE_B_BACK_APPARENT_POWER,       // B相反向视在电能
-    E_D07_RULER_TYPE_PHASE_B_ASSO_POWER,                // B相关联电能
-    E_D07_RULER_TYPE_PHASE_B_FORTH_FUND_HAVE_POWER,     // B相正向有功基波电能
-    E_D07_RULER_TYPE_PHASE_B_BACK_FUND_HAVE_POWER,      // B相反向有功基波电能
-    E_D07_RULER_TYPE_PHASE_B_FORTH_HARM_HAVE_POWER,     // B相正向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_B_BACK_HARM_HAVE_POWER,      // B相反向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_B_COPR_LOSS_HAVE_POWER_COMP, // B相铜损有功电能补偿量
-    E_D07_RULER_TYPE_PHASE_B_CORE_LOSS_HAVE_POWER_COMP, // B相铁损有功电能补偿量
+    E_D07_RULER_TYPE_PHASE_B_FORTH_HAVE_POWER,          // B相正向有功电能  B-phase positive active energy
+    E_D07_RULER_TYPE_PHASE_B_BACK_HAVE_POWER,           // B相反向有功电能  B-phase reverse active energy
+    E_D07_RULER_TYPE_PHASE_B_COMB_NONE_1_POWER,         // B相组合无功1电能  B-phase combined reactive 1 energy
+    E_D07_RULER_TYPE_PHASE_B_COMB_NONE_2_POWER,         // B相组合无功2电能  B-phase combined reactive 2 energy
+    E_D07_RULER_TYPE_PHASE_B_QUAD_1_NONE_POWER,         // B相第一象限无功电能  B-phase first quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_B_QUAD_2_NONE_POWER,         // B相第二象限无功电能  B-phase second quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_B_QUAD_3_NONE_POWER,         // B相第三象限无功电能  B-phase third quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_B_QUAD_4_NONE_POWER,         // B相第四象限无功电能  B-phase fourth quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_B_FORTH_APPARENT_POWER,      // B相正向视在电能  B-phase forward apparent energy
+    E_D07_RULER_TYPE_PHASE_B_BACK_APPARENT_POWER,       // B相反向视在电能  B-phase opposite apparent energy
+    E_D07_RULER_TYPE_PHASE_B_ASSO_POWER,                // B相关联电能  B correlation energy
+    E_D07_RULER_TYPE_PHASE_B_FORTH_FUND_HAVE_POWER,     // B相正向有功基波电能  B-phase positive active fundamental energy
+    E_D07_RULER_TYPE_PHASE_B_BACK_FUND_HAVE_POWER,      // B相反向有功基波电能  B-phase forward active fundamental energy
+    E_D07_RULER_TYPE_PHASE_B_FORTH_HARM_HAVE_POWER,     // B相正向有功谐波电能  B-phase positive active harmonic energy
+    E_D07_RULER_TYPE_PHASE_B_BACK_HARM_HAVE_POWER,      // B相反向有功谐波电能  B-phase reverse active harmonic energy
+    E_D07_RULER_TYPE_PHASE_B_COPR_LOSS_HAVE_POWER_COMP, // B相铜损有功电能补偿量  B-phase copper loss active energy compensation amount
+    E_D07_RULER_TYPE_PHASE_B_CORE_LOSS_HAVE_POWER_COMP, // B相铁损有功电能补偿量  B-phase iron loss active energy compensation quantity
 
     /* [00] [(3D~C2)][00] [00] */
-    E_D07_RULER_TYPE_PHASE_C_FORTH_HAVE_POWER,          // C相正向有功电能
-    E_D07_RULER_TYPE_PHASE_C_BACK_HAVE_POWER,           // C相反向有功电能
-    E_D07_RULER_TYPE_PHASE_C_COMB_NONE_1_POWER,         // C相组合无功1电能
-    E_D07_RULER_TYPE_PHASE_C_COMB_NONE_2_POWER,         // C相组合无功2电能
-    E_D07_RULER_TYPE_PHASE_C_QUAD_1_NONE_POWER,         // C相第一象限无功电能
-    E_D07_RULER_TYPE_PHASE_C_QUAD_2_NONE_POWER,         // C相第二象限无功电能
-    E_D07_RULER_TYPE_PHASE_C_QUAD_3_NONE_POWER,         // C相第三象限无功电能
-    E_D07_RULER_TYPE_PHASE_C_QUAD_4_NONE_POWER,         // C相第四象限无功电能
-    E_D07_RULER_TYPE_PHASE_C_FORTH_APPARENT_POWER,      // C相正向视在电能
-    E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_POWER,       // C相反向视在电能
-    E_D07_RULER_TYPE_PHASE_C_ASSO_POWER,                // C相关联电能
-    E_D07_RULER_TYPE_PHASE_C_FORTH_FUND_HAVE_POWER,     // C相正向有功基波电能
-    E_D07_RULER_TYPE_PHASE_C_BACK_FUND_HAVE_POWER,      // C相反向有功基波电能
-    E_D07_RULER_TYPE_PHASE_C_FORTH_HARM_HAVE_POWER,     // C相正向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_C_BACK_HARM_HAVE_POWER,      // C相反向有功谐波电能
-    E_D07_RULER_TYPE_PHASE_C_COPR_LOSS_HAVE_POWER_COMP, // C相铜损有功电能补偿量
-    E_D07_RULER_TYPE_PHASE_C_CORE_LOSS_HAVE_POWER_COMP, // C相铁损有功电能补偿量
+    E_D07_RULER_TYPE_PHASE_C_FORTH_HAVE_POWER,          // C相正向有功电能  C-phase positive active energy
+    E_D07_RULER_TYPE_PHASE_C_BACK_HAVE_POWER,           // C相反向有功电能  C-phase reverse active energy
+    E_D07_RULER_TYPE_PHASE_C_COMB_NONE_1_POWER,         // C相组合无功1电能  C-phase combined reactive 1 energy
+    E_D07_RULER_TYPE_PHASE_C_COMB_NONE_2_POWER,         // C相组合无功2电能  C-phase combined reactive 2 energy
+    E_D07_RULER_TYPE_PHASE_C_QUAD_1_NONE_POWER,         // C相第一象限无功电能  C-phase first quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_C_QUAD_2_NONE_POWER,         // C相第二象限无功电能  C-phase second quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_C_QUAD_3_NONE_POWER,         // C相第三象限无功电能  C-phase third quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_C_QUAD_4_NONE_POWER,         // C相第四象限无功电能  Phase C fourth quadrant reactive energy
+    E_D07_RULER_TYPE_PHASE_C_FORTH_APPARENT_POWER,      // C相正向视在电能  C-phase forward apparent energy
+    E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_POWER,       // C相反向视在电能  C phase opposite apparent energy
+    E_D07_RULER_TYPE_PHASE_C_ASSO_POWER,                // C相关联电能  C correlation energy
+    E_D07_RULER_TYPE_PHASE_C_FORTH_FUND_HAVE_POWER,     // C相正向有功基波电能  C-phase positive active fundamental energy
+    E_D07_RULER_TYPE_PHASE_C_BACK_FUND_HAVE_POWER,      // C相反向有功基波电能  C-phase forward active fundamental energy
+    E_D07_RULER_TYPE_PHASE_C_FORTH_HARM_HAVE_POWER,     // C相正向有功谐波电能  C-phase positive active harmonic energy
+    E_D07_RULER_TYPE_PHASE_C_BACK_HARM_HAVE_POWER,      // C相反向有功谐波电能  C phase opposite active harmonic energy
+    E_D07_RULER_TYPE_PHASE_C_COPR_LOSS_HAVE_POWER_COMP, // C相铜损有功电能补偿量  C-phase copper loss active energy compensation quantity
+    E_D07_RULER_TYPE_PHASE_C_CORE_LOSS_HAVE_POWER_COMP, // C相铁损有功电能补偿量  C-phase iron loss active energy compensation quantity
 
-    // 对应表A.1电能数据标识编码表最大标识 */
+    /* 对应表A.1电能数据标识编码表最大标识
+    Corresponding to Table A.1 Electrical Energy Data Identification Coding Table Maximum Identification
+    */
     E_D07_RULER_TYPE_A1_MAX = E_D07_RULER_TYPE_PHASE_C_CORE_LOSS_HAVE_POWER_COMP,
 
-    /* 对应表A.2 */
+    /* 对应表A.2   Corresponds to table A.2 */
     E_D07_RULER_TYPE_A2_MIN,
 
     /* [01] [00] [(00~FF)] [00] */
@@ -366,10 +370,14 @@ typedef enum
     E_D07_RULER_TYPE_PHASE_C_FORTH_APPARENT_DEMAND, // C相正向视在最大需量及发生时间
     E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_DEMAND,  // C相反向视在最大需量及发生时间
 
-    /* 对应表A.2最大需量及发生时间数据标识编码表 */
+    /* 对应表A.2最大需量及发生时间数据标识编码表
+    Corresponding to Table A.2 Table of Data Identification Codes for Maximum Requirements and Time of Occurrence
+    */
     E_D07_RULER_TYPE_A2_MAX = E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_DEMAND,
 
-    /* 对应表A.3 变量数据标识编码表 */
+    /* 对应表A.3 变量数据标识编码表
+    Corresponding to Table A.3 Variable Data Identification Coding Table
+    */
     E_D07_RULER_TYPE_A3_MIN,
     E_D07_RULER_TYPE_PHASE_A_VOLT = E_D07_RULER_TYPE_A3_MIN, // A相电压
     E_D07_RULER_TYPE_PHASE_B_VOLT,                           // B相电压

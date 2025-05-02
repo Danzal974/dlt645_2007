@@ -178,28 +178,28 @@ INT32 get_d07_ruler_id(E_D07_RULER_TYPE type,
     return E_D07_OK;
 }
 
-
 /*************************************************
 Function:       pack_d07_frame_by_data
 Description:    内部函数，仅完成结构体的填充
+                Internal function that only fills the structure
 
-Author:         liming 
+Author:         liming
 
-Calls:          
-Called By:      
-Input:          S_D07_PACK_FRAME *inPara 用于封帧数据
-                
+Calls:
+Called By:
+Input:          S_D07_PACK_FRAME *inPara 用于封帧数据 Used to seal frame data
+
 Output:         char *outBuffer 封装后的帧buffer
                 INT32  *outLength 该帧总长
 Return:         正确返回0
 
-Others:         
-  
+Others:
+
 *************************************************/
 INT32 pack_d07_frame_by_data(S_D07_PACK_FRAME *inPara, char *outBuffer, INT32 *outLength)
 {
     INT32 i;
-    INT32 len = 0; /* 计算包的总字节长 */
+    INT32 len = 0; /* 计算包的总字节长  Calculate the total byte length of the packet */
     UINT8 ucCheckSum = 0;
     UINT8 ucDi0,ucDi1,ucDi2,ucDi3;
     UINT8 aucAddrTmp[6]; 
@@ -208,7 +208,7 @@ INT32 pack_d07_frame_by_data(S_D07_PACK_FRAME *inPara, char *outBuffer, INT32 *o
     {
         return E_D07_ERRO_NULL;
     }
-    // 准备数据 
+    // 准备数据  // Prepare the data
     ucDi0 = inPara->ruler_id & 0xFF;
     ucDi1 = (inPara->ruler_id >> 8) & 0xFF;
     ucDi2 = (inPara->ruler_id >> 16) & 0xFF;
@@ -216,74 +216,73 @@ INT32 pack_d07_frame_by_data(S_D07_PACK_FRAME *inPara, char *outBuffer, INT32 *o
 
     d07_str2bcd(inPara->address, aucAddrTmp, 6);
 
-    /* 开始封帧 */
-    // 1 帧起始符
-    outBuffer[len++] = 0x68; 
+    /* 开始封帧 */ /* Start frame blocking */
+    // 1 帧起始符  // 1 Frame start character
+    outBuffer[len++] = 0x68;
 
-    // 2 地址域 
+    // 2 地址域  // 2 Address field
     for(i = 0; i < 6; i++)
     {
         outBuffer[len++] = aucAddrTmp[i];
     }
 
-    // 3 帧起始符
-    outBuffer[len++] = 0x68; 
+    // 3 帧起始符  // 3 Frame start character
+    outBuffer[len++] = 0x68;
 
-    // 4 控制码
-    outBuffer[len++] = inPara->ctrl_code; 
+    // 4 控制码  // 4 Control code
+    outBuffer[len++] = inPara->ctrl_code;
 
-    // 5 数据域字节数
+    // 5 数据域字节数  // 5 Number of bytes in data field
     outBuffer[len++] = inPara->data_len;
     //printf("len = %d\n", inPara->data_len);
 
-    // 6 规约ID  - 以下数据域 逐字节加0x33
+    // 6 规约ID  - 以下数据域 逐字节加0x33  // 6 Statute ID - the following data fields byte by byte plus 0x33
+
     outBuffer[len++] = ucDi0 + 0x33;
     outBuffer[len++] = ucDi1 + 0x33;
     outBuffer[len++] = ucDi2 + 0x33;
     outBuffer[len++] = ucDi3 + 0x33;
 
-  
-    // 7 其它数据
+    // 7 其它数据  // 7 Other data
     for(i = 0; i < inPara->data_len - 4; i++)
     {
        outBuffer[len++] = inPara->data[i] + 0x33;
     }
 
-    // 8 计数检验和
+    // 8 计数检验和  // 8 Count check sum
     for(i = 0; i < len; i++)
     {
         ucCheckSum += outBuffer[i];
     }
 
-    // 9 检验和
+    // 9 检验和  // 9 Checksum
     outBuffer[len++] = ucCheckSum;
 
-    // 10 结束符
+    // 10 结束符  // 10 Terminator
     outBuffer[len++] = 0x16;
 
-    /* 输出参数 */
+    /* 输出参数 */ /* Output parameters */
     *outLength = len;
 
     return E_D07_OK;
 }
 
-
-
 /*************************************************
 Function:       trans_d07ctrl_char2struct
 Description:    解析将代表它的字节值转化控制码结构输出
-                
-Author:         liming 
+Parsing converts the byte value representing it into a control code structure for output.
 
-Calls:          
-Called By:      
+Author:         liming
+
+Calls:
+Called By:
 Input:          S_D07_CTRL_CODE *inStruct
 
 Output:         UINT8 *outChar
-Return:      
+Return:
 
-Others:        反转换 trans_d07ctrl_struct2char
-  
+Others:        反转换 inversion : trans_d07ctrl_struct2char
+
 *************************************************/
 eD07Err trans_d07ctrl_char2struct(UINT8 inChar,  S_D07_CTRL_CODE *outStruct)
 {
@@ -390,22 +389,22 @@ eD07Err trans_d07ctrl_char2struct(UINT8 inChar,  S_D07_CTRL_CODE *outStruct)
     return E_D07_OK;
 }
 
-
 /*************************************************
 Function:       trans_d07ctrl_struct2char
 Description:    解析控制码结构 将代码它的字节值输出
-                
-Author:         liming 
+Parses the control code structure and outputs the byte value representing it.
 
-Calls:          
-Called By:      
+Author:         liming
+
+Calls:
+Called By:
 Input:          S_D07_CTRL_CODE *inStruct
 
 Output:         UINT8 *outChar
-Return:      
+Return:
 
-Others:        反转换 trans_d07ctrl_char2struct
-  
+Others:        反转换 Inverse Conversion trans_d07ctrl_char2struct
+
 *************************************************/
 eD07Err trans_d07ctrl_struct2char(UINT8 *outChar, S_D07_CTRL_CODE *inStruct)
 {
@@ -432,29 +431,29 @@ eD07Err trans_d07ctrl_struct2char(UINT8 *outChar, S_D07_CTRL_CODE *inStruct)
     return E_D07_OK;
 }
 
-
 /*************************************************
 Function:       unpack_d07_frame
 Description:    解析DLT645 2007帧功能函数
+                Analyzing the DLT645 2007 Frame Function Functions
 
-Author:         liming 
+Author:         liming
 
-Calls:          
-Called By:      
-Input:          inpBuffer      传入包有帧buffer指针
-                inBufferLength 该buffer长度
-                
-Output:         outpFrame 该帧的各类详细信息
+Calls:
+Called By:
+Input:          inpBuffer      传入包有帧buffer指针  The incoming packet has a frame buffer pointer
+                inBufferLength 该buffer长度  The length of the buffer
 
-Return:         正确返回0
+Output:         outpFrame 该帧的各类详细信息 Detailed information about the frame
 
-Others:         重要的功能函数
-  
+Return:         正确返回0 Returns 0 correctly
+
+Others:         重要的功能函数 Important functions
+
 *************************************************/
 INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outpFrame)
 {
 
-    INT32 nNumber0xFE = 0;                     /* 前导字符的个数 */
+    INT32 nNumber0xFE = 0; /* 前导字符的个数 Number of leading characters */
     INT32 i = 0;
     INT32 pos = 0;
     INT32 nCheckSumPosStart, nCheckSumPos, nEndPos;
@@ -466,11 +465,11 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
     
     UINT8 *buffer = (UINT8 *)inpBuffer;
 
-    char addr_bcd[6] = {0};                  //地址信息(BCD形式)
-    char addr_str[D07_ADDR_LEN+1] = {0};         //地址信息(string形式)
+    char addr_bcd[6] = {0};                // 地址信息(BCD形式)  Address information (BCD form)
+    char addr_str[D07_ADDR_LEN + 1] = {0}; // 地址信息(string形式)  Address information (string form)
     UINT8 aucDataTmp[D07_DATA_MAX];
     S_D07_RULER_INFO stRulerInfor = {0};
-    F_D07_RULER_TRANS pTransFunc;    /* 解析函数指针 */
+    F_D07_RULER_TRANS pTransFunc; /* 解析函数指针 Parse function pointer */
 
     if(NULL == inpBuffer || NULL == outpFrame)
     {
@@ -493,13 +492,13 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
     
     nCheckSumPosStart = pos;
 
-    // 检查前导字符 0x68
+    // 检查前导字符 0x68 : Check leading characters 0x68
     if(0x68 != buffer[pos] || 0x68 != buffer[pos+7])
     {
         return E_D07_ERRO_FRAME_0x68;
     }
 
-    //地址
+    // 地址  Address
     pos++;
     for(i = 0; i < 6; i++)
     {
@@ -508,19 +507,19 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
 
     pos++;
 
-    //地址
+    // 地址  Address
     d07_bcd2str(addr_bcd, addr_str, 6);
-    //控制码
+    // 控制码  Control Code
     ucCtrlCode = buffer[pos++];
-    //printf("\nCtrlCode = 0x%02X\n", ucCtrlCode);
-    //转换控制码
+    // printf("\nCtrlCode = 0x%02X\n", ucCtrlCode);
+    // 转换控制码 Conversion control code
     ret =  trans_d07ctrl_char2struct(ucCtrlCode, &(outpFrame->ctrl_s));
     if(E_D07_OK != ret)
     {
         return ret;
     }
 
-    //数据域长度
+    // 数据域长度  Data field length
     ucDataLen = buffer[pos++];
     nCheckSumPos = pos + ucDataLen;
     nEndPos = nCheckSumPos+1;
@@ -529,7 +528,7 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
     {
         aucDataTmp[i] = (buffer[pos++] - 0x33); 
     }
-    //查检checksum
+    // 查检 checksum
     for(i = nCheckSumPosStart; i < nCheckSumPos; i++)
     {
         ucCheckSum +=  buffer[i];
@@ -542,37 +541,36 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
         return E_D07_ERRO_FRAME_CHECK_SUM;
     }
 
-    //结束符
+    // 结束符 Terminator
     if(0x16 != buffer[nEndPos])
     {
         return E_D07_ERRO_FRAME_END_0x16;
     }
 
-
-    //地址
+    // 地址 Address
     for(i = 0; i < D07_ADDR_LEN; i++)
     {
         outpFrame->address[i] = addr_str[i];
         //printf("%d - %c \n",i, addr_str[i]);
     }
 
-    // 正常的报文
-    
+    // 正常的报文  Normal message
+
     if(E_D07_CTRL_SR_OK == outpFrame->ctrl_s.reply)
-    {    
-        // 原数据 
+    {
+        // 原数据  Original data
         for(i = 4; i < ucDataLen; i++)
         {
             outpFrame->data_pack[i-4] = aucDataTmp[i];
         }
 
-        // 规约ID
+        // 规约ID  Statute ID
         ulRulerID = ((aucDataTmp[0] & 0xFF) | 
                     ((aucDataTmp[1] << 8) & 0xFF00) |
                     ((aucDataTmp[2] << 16) & 0xFF0000) |
                     ((aucDataTmp[3] << 24) & 0xFF000000));
 
-        // 通过ID获取详细信息    
+        // 通过ID获取详细信息  Get details by ID
         ret = get_d07_ruler_info(ulRulerID, &stRulerInfor);
 
         if(E_D07_OK != ret)
@@ -614,7 +612,7 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
         {
             outpFrame->data_pack[i] = aucDataTmp[i];
         }
-        // 异常报文
+        // 异常报文 exception message
         outpFrame->data_len  = ucDataLen;
         outpFrame->flag    = E_D07_UNPD_FLG_ERROR_OK;        
         ret = trans_d07_data_err(E_D07_TRANS_F2U, 
@@ -632,8 +630,8 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
         
     
     }
-    
-    /* 封装输出最后信息 */
+
+    /* 封装输出最后信息 Encapsulation outputs the final message */
     outpFrame->lead_num  = nNumber0xFE;
     outpFrame->ctrl_c      = ucCtrlCode;
     outpFrame->ruler_id  = ulRulerID;
@@ -647,27 +645,27 @@ INT32 unpack_d07_frame(void *inpBuffer, INT32 inBufferLength, S_D07_UNPACK *outp
 
 /*************************************************
 Function:       get_d07_ruler_info
-Description:    通过规约ID获得对应规约的详细信息:
+Description:    通过规约ID获得对应规约的详细信息: Get detailed information about the corresponding statute by statute ID :
 
-                (1)规约的类型及额外数据
-                (2)对应数据格式类型
-                (3)数据域长度
-                (4)数据域各数据单位
-                (5)规约的可读写属性
-                (6)该规约的数据项名称
-                (7)实现对该条规约解析和封装函数指针
+                (1)规约的类型及额外数据 (1) Types of statutes and additional data
+                (2)对应数据格式类型 (2) Corresponding data format types
+                (3)数据域长度 (3) Length of the data field
+                (4)数据域各数据单位 (4) Data unit of each data field
+                (5)规约的可读写属性 (5) Read-write attributes of the statute
+                (6)该规约的数据项名称 (6) The name of the data item of the statute
+                (7)实现对该条规约解析和封装函数指针 (7) the realization of the statute parsing and encapsulation function pointer
 
-Author:         liming 
+Author:         liming
 
-Calls:          
-Called By:      
+Calls:
+Called By:
 Input:          UINT32 rulerID 规约ID
-                
-Output:         S_D07_RULER_INFO *outRulerInfo
-Return:         正确返回 0 其它为错误类型
 
-Others:         重要函数，规约解析核心函数
-  
+Output:         S_D07_RULER_INFO *outRulerInfo
+Return:         正确返回 0 其它为错误类型 Correct returns 0, others are errors.
+
+Others:         重要函数，规约解析核心函数 Important Functions, Statute Analysis Core Functions
+
 *************************************************/
 INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
 {
@@ -676,13 +674,13 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
     UINT8 ucDi1 = 0;
     UINT8 ucDi0 = 0;
 
-    E_D07_RULER_TYPE     type   = E_D07_RULER_TYPE_UNKNOWN;   // 规约类型
-    E_D07_RULER_RDWR     rdwr   = E_D07_RDWR_READ_ONLY;       // 规约数据的读写属性
-    E_D07_RULER_FORMAT   format = E_D07_FMT_UNKOWN;           // 规约数据的格式
-    F_D07_RULER_TRANS    func   = NULL;                       // 数据域转换函数指针
-    S_D07_RULER_PARA     para   = {0};                        // 规约类型的额外数据
-    INT32                len    = 0;                          // 数据域字节长度 
-    char                 name[NAME_LEN]   = {0};              // 该条规约数据项名称
+    E_D07_RULER_TYPE     type   = E_D07_RULER_TYPE_UNKNOWN;   // 规约类型 Statute Types
+    E_D07_RULER_RDWR     rdwr   = E_D07_RDWR_READ_ONLY;       // 规约数据的读写属性 Read and write attributes of statute data
+    E_D07_RULER_FORMAT   format = E_D07_FMT_UNKOWN;           // 规约数据的格式 Formatting of Statute Data
+    F_D07_RULER_TRANS    func   = NULL;                       // 数据域转换函数指针 Pointers to data field conversion functions
+    S_D07_RULER_PARA     para   = {0};                        // 规约类型的额外数据 Extra Data for Statute Types
+    INT32                len    = 0;                          // 数据域字节长度  Data field byte length 
+    char                 name[NAME_LEN]   = {0};              // 该条规约数据项名称 Name of the statute data item
     char                 name_1[NAME_LEN] = {0};
     char strPayOff[32] = {0};
 
@@ -706,18 +704,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
             {
                 return E_D07_ERRO_UNKOWN_ID;
             }
-            
-            // 封装结算日字符串    
+
+            // 封装结算日字符串     Encapsulated settlement date string
             if(ucDi0 == 0)
             {
                 sprintf(strPayOff, "%s", "(当前)");        
             }
             else
             {
-                sprintf(strPayOff,"(上%d结算日)", ucDi0);
+                sprintf(strPayOff, "(上%d结算日)", ucDi0);
             }
-            
-            /* 对于表 A.1 相同的数据属性 */
+
+            /* 对于表 A.1 相同的数据属性 For the same data attributes as in Table A.1 */
             para.payoff = (E_D07_PARA_PAYOFF)(ucDi0 + 1); /* 结算日 */
             para.rate    = E_D07_RATE_NULL;
             para.harm    = E_D07_HARM_NULL;
@@ -734,18 +732,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][00]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_HAVE_POWER_TOTAL;
-                        sprintf(name_1, "组合有功总电能");                        
+                        sprintf(name_1, "Combined total active energy "); // 组合有功总电能
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][00]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_HAVE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "组合有功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Combined active rate %d electricity", ucDi1); // 组合有功费率
                     }
                     else if(0xFF == ucDi1) //[00][00]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_COMB_HAVE_POWER_BLOCK;
-                        sprintf(name_1, "组合有功电能数据块");    
+                        sprintf(name_1, "Combined active energy data block "); // 组合有功电能数据块
                     }
                     else    //[00][00]{(!(0-3F,FF))}[*]
                     {
@@ -760,18 +758,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][01]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_HAVE_POWER_TOTAL;
-                        sprintf(name_1, "正向有功总电能");                        
+                        sprintf(name_1, "Positive Total Active Energy "); // 正向有功总电能
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][01]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_HAVE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "正向有功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Positive Active Rate %d electricity", ucDi1); // 正向有功费率
                     }
                     else if(0xFF == ucDi1) //[00][01]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_FORTH_HAVE_POWER_BLOCK;
-                        sprintf(name_1, "正向有功电能数据块");    
+                        sprintf(name_1, "Positive Active Energy Data Block "); // 正向有功电能数据块
                     }
                     else    //[00][01]{(!(0-3F,FF))}[*]
                     {
@@ -786,18 +784,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][02]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_HAVE_POWER_TOTAL;
-                        sprintf(name_1, "反向有功总电能");                        
+                        sprintf(name_1, "Reverse Total Active Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][02]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_HAVE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "反向有功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Reverse Active Rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][02]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_BACK_HAVE_POWER_BLOCK;
-                        sprintf(name_1, "反向有功电能数据块");    
+                        sprintf(name_1, "Reverse active energy data block");
                     }
                     else    //[00][02]{(!(0-3F,FF))}[*]
                     {
@@ -811,18 +809,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][03]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_1_POWER_TOTAL;
-                        sprintf(name_1, "组合无功1总电能");                        
+                        sprintf(name_1, "Total combined reactive 1 energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[03][00]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_1_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "组合无功1费率%d电能", ucDi1);    
+                        sprintf(name_1, "Combined reactive 1 rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][03]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_COMB_NONE_1_POWER_BLOCK;
-                        sprintf(name_1, "组合无功1电能数据块");    
+                        sprintf(name_1, "Combined reactive 1 energy data block");
                     }
                     else    //[00][03]{(!(0-3F,FF))}[*]
                     {
@@ -837,18 +835,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][04]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_2_POWER_TOTAL;
-                        sprintf(name_1, "组合无功2总电能");                        
+                        sprintf(name_1, "Combined reactive 2 total energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[04][00]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_2_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "组合无功2费率%d电能", ucDi1);    
+                        sprintf(name_1, "Combined reactive 2 rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][04]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_COMB_NONE_2_POWER_BLOCK;
-                        sprintf(name_1, "组合无功2电能数据块");    
+                        sprintf(name_1, "Combined reactive 2 energy data block");
                     }
                     else    //[00][04]{(!(0-3F,FF))}[*]
                     {
@@ -863,18 +861,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][05]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_POWER_TOTAL;
-                        sprintf(name_1, "第一象限无功总电能");                        
+                        sprintf(name_1, "First Quadrant Total Reactive Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][05]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第一象限无功费率%d电能", ucDi1);    
+                        sprintf(name_1, "First Quadrant Reactive Rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][05]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_POWER_BLOCK;
-                        sprintf(name_1, "第一象限无功电能数据块");    
+                        sprintf(name_1, "First Quadrant Reactive Energy Data Block");
                     }
                     else    //[00][05]{(!(0-3F,FF))}[*]
                     {
@@ -889,18 +887,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][06]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_POWER_TOTAL;
-                        sprintf(name_1, "第二象限无功总电能");                        
+                        sprintf(name_1, "Quadrant 2 Total Reactive Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][06]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第二象限无功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Quadrant 2 reactive energy rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][06]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_POWER_BLOCK;
-                        sprintf(name_1, "第二象限无功电能数据块");    
+                        sprintf(name_1, "Second Quadrant Reactive Energy Data Block");
                     }
                     else    //[00][06]{(!(0-3F,FF))}[*]
                     {
@@ -915,18 +913,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][07]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_POWER_TOTAL;
-                        sprintf(name_1, "第三象限无功总电能");                        
+                        sprintf(name_1, "Quadrant 3 Total Reactive Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][07]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第三象限无功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Third Quadrant Reactive Rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][07]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_POWER_BLOCK;
-                        sprintf(name_1, "第三象限无功电能数据块");    
+                        sprintf(name_1, "Quadrant 3 Reactive Energy Data Block");
                     }
                     else    //[00][07]{(!(0-3F,FF))}[*]
                     {
@@ -941,18 +939,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][08]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_POWER_TOTAL;
-                        sprintf(name_1, "第四象限无功总电能");                        
+                        sprintf(name_1, "Quadrant 4 Total Reactive Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][08]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第四象限无功费率%d电能", ucDi1);    
+                        sprintf(name_1, "Quadrant 4 Reactive Rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][08]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_POWER_BLOCK;
-                        sprintf(name_1, "第四象限无功电能数据块");    
+                        sprintf(name_1, "Quadrant 4 Reactive Energy Data Block");
                     }
                     else    //[00][08]{(!(0-3F,FF))}[*]
                     {
@@ -967,18 +965,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][09]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_APPARENT_POWER_TOTAL;
-                        sprintf(name_1, "正向视在总电能");                        
+                        sprintf(name_1, "Positive Total Apparent Energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][09]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_APPARENT_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "正向视在费率%d电能", ucDi1);    
+                        sprintf(name_1, "Positive Apparent Rate%d电能", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][09]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_FORTH_APPARENT_POWER_BLOCK;
-                        sprintf(name_1, "正向视在电能数据块");    
+                        sprintf(name_1, "Positive Apparent Energy Data Block");
                     }
                     else    //[00][09]{(!(0-3F,FF))}[*]
                     {
@@ -993,18 +991,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[00][0A]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_APPARENT_POWER_TOTAL;
-                        sprintf(name_1, "反向视在总电能");                        
+                        sprintf(name_1, "Reverse apparent total energy");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[00][0A]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_APPARENT_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "反向视在费率%d电能", ucDi1);    
+                        sprintf(name_1, "Reverse apparent rate %d energy", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][0A]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_BACK_APPARENT_POWER_BLOCK;
-                        sprintf(name_1, "反向视在电能数据块");    
+                        sprintf(name_1, "Reverse apparent energy data block");
                     }
                     else    //[00][0A]{(!(0-3F,FF))}[*]
                     {
@@ -1024,405 +1022,405 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                 case 0x80:// [00][80][00][*]
                 {
                     type = E_D07_RULER_TYPE_ASSO_POWER_TOTAL;
-                    sprintf(name_1, "关联总电能");    
+                    sprintf(name_1, "Associated Total Energy");
                 }
                 break;
 
                 case 0x81:// [00][81][00][*]
                 {
                     type = E_D07_RULER_TYPE_FORTH_FUND_HAVE_POWER_TOTAL;
-                    sprintf(name_1, "正向有功基波总电能");    
+                    sprintf(name_1, "Positive Active Basewave Total Energy");
                 }
                 break;
 
                 case 0x82:// [00][82][00][*]
                 {
                     type = E_D07_RULER_TYPE_BACK_FUND_HAVE_POWER_TOTAL;
-                    sprintf(name_1, "反向有功基波总电能");    
+                    sprintf(name_1, "Reverse Active Basewave Total Energy");
                 }
                 break;
                 
                 case 0x83:// [00][83][00][*]
                 {
                     type = E_D07_RULER_TYPE_FORTH_HARM_HAVE_POWER_TOTAL;
-                    sprintf(name_1, "正向有功谐波总电能");    
+                    sprintf(name_1, "Total positive active harmonic energy");
                 }
                 break;
 
                 case 0x84:// [00][84][00][*]
                 {
                     type = E_D07_RULER_TYPE_BACK_HARM_HAVE_POWER_TOTAL;
-                    sprintf(name_1, "反向有功谐波总电能");    
+                    sprintf(name_1, "Reverse active harmonic total energy");
                 }
                 break;
 
                 case 0x85:// [00][85][00][*]
                 {
                     type = E_D07_RULER_TYPE_COPR_LOSS_HAVE_POWER_COMP_TOTAL;
-                    sprintf(name_1, "铜损有功总电能补偿量");    
+                    sprintf(name_1, "Copper loss active total energy compensation");
                 }
                 break;
 
                 case 0x86:// [00][86][00][*]
                 {
                     type = E_D07_RULER_TYPE_CORE_LOSS_HAVE_POWER_COMP_TOTAL;
-                    sprintf(name_1, "铁损有功总电能补偿量");    
+                    sprintf(name_1, "Total active energy compensation for iron loss");
                 }
                 break;
 
                 case 0x15:// [00][15][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_HAVE_POWER;
-                    sprintf(name_1, "A相正向有功电能");    
+                    sprintf(name_1, "A-phase positive active energy");
                 }
                 break;
                 
                 case 0x16:// [00][16][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_HAVE_POWER;
-                    sprintf(name_1, "A相反向有功电能");    
+                    sprintf(name_1, "A-phase reverse active energy");
                 }
                 break;
                 
                 case 0x17:// [00][17][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_COMB_NONE_1_POWER;
-                    sprintf(name_1, "A相组合无功1电能");    
+                    sprintf(name_1, "A-phase combined reactive 1 energy");
                 }
                 break;
                 
                 case 0x18:// [00][18][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_COMB_NONE_2_POWER;
-                    sprintf(name_1, "A相组合无功2电能");    
+                    sprintf(name_1, "A-phase combined reactive 2 energy");
                 }
                 break;
                 
                 case 0x19:// [00][19][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "A相第一象限无功电能");    
+                    sprintf(name_1, "A-phase first quadrant reactive energy");
                 }
                 break;
                 
                 case 0x1A:// [00][1A][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "A相第二象限无功电能");    
+                    sprintf(name_1, "A-phase second quadrant reactive energy");
                 }
                 break;
                 
                 case 0x1B:// [00][1B][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "A相第三象限无功电能");    
+                    sprintf(name_1, "A-phase third quadrant reactive energy");
                 }
                 break;
                 
                 case 0x1C:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "A相第四象限无功电能");    
+                    sprintf(name_1, "A-phase fourth quadrant reactive energy");
                 }
                 break;
 
                 case 0x1D:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "A相正向视在电能");    
+                    sprintf(name_1, "A-phase positive apparent energy");
                 }
                 break;
                 
                 case 0x1E:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_APPARENT_POWER;
-                    sprintf(name_1, "A相反向视在电能");    
+                    sprintf(name_1, "A phase opposite apparent energy");
                 }
                 break;
                 
                 case 0x94:// [00][94][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_ASSO_POWER;
-                    sprintf(name_1, "A相关联电能");    
+                    sprintf(name_1, "A correlation energy");
                 }
                 break;
 
                 case 0x95:// [00][95][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_FUND_HAVE_POWER;
-                    sprintf(name_1, "A相正向有功基波电能");    
+                    sprintf(name_1, "A-phase positive active fundamental energy");
                 }
                 break;
 
                 case 0x96:// [00][96][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_FUND_HAVE_POWER;
-                    sprintf(name_1, "A相反向有功基波电能");    
+                    sprintf(name_1, "A phase opposite active fundamental energy");
                 }
                 break;
 
                 case 0x97:// [00][07][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_HARM_HAVE_POWER;
-                    sprintf(name_1, "A相正向有功谐波电能");    
+                    sprintf(name_1, "A-phase positive active harmonic energy");
                 }
                 break;
 
                 case 0x98:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_HARM_HAVE_POWER;
-                    sprintf(name_1, "A相反向有功谐波电能");    
+                    sprintf(name_1, "A phase opposite active harmonic energy");
                 }
                 break;
 
                 case 0x99:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_COPR_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "A相铜损有功电能补偿量");    
+                    sprintf(name_1, "A-phase copper loss active energy compensation amount");
                 }
                 break;
 
                 case 0x9A:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_CORE_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "A相铁损有功电能补偿量");    
+                    sprintf(name_1, "A-phase iron loss active energy compensation amount");
                 }
                 break;
                 
                 case 0x29:// [00][29][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_HAVE_POWER;
-                    sprintf(name_1, "B相正向有功电能");    
+                    sprintf(name_1, "B-phase positive active energy");
                 }
                 break;
                 
                 case 0x2A:// [00][2A][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_HAVE_POWER;
-                    sprintf(name_1, "B相反向有功电能");    
+                    sprintf(name_1, "B-phase reverse active energy");
                 }
                 break;
                 
                 case 0x2B:// [00][2B][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_COMB_NONE_1_POWER;
-                    sprintf(name_1, "B相组合无功1电能");    
+                    sprintf(name_1, "B-phase combined reactive 1 energy");
                 }
                 break;
                 
                 case 0x2C:// [00][2C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_COMB_NONE_2_POWER;
-                    sprintf(name_1, "B相组合无功2电能");    
+                    sprintf(name_1, "Phase B combined reactive 2 energy");
                 }
                 break;
                 
                 case 0x2D:// [00][2D][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "B相第一象限无功电能");    
+                    sprintf(name_1, "B-phase first quadrant reactive energy");
                 }
                 break;
                 
                 case 0x2E:// [00][2E][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "B相第二象限无功电能");    
+                    sprintf(name_1, "B-phase second quadrant reactive energy");
                 }
                 break;
                 
                 case 0x2F:// [00][2F][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "B相第三象限无功电能");    
+                    sprintf(name_1, "B-phase third quadrant reactive energy");
                 }
                 break;
                 
                 case 0x30:// [00][30][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "B相第四象限无功电能");    
+                    sprintf(name_1, "B-phase fourth quadrant reactive energy");
                 }
                 break;
 
                 case 0x31:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "B相正向视在电能");    
+                    sprintf(name_1, "B-phase positive apparent energy");
                 }
                 break;
                 
                 case 0x32:// [00][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_APPARENT_POWER;
-                    sprintf(name_1, "B相反向视在电能");    
+                    sprintf(name_1, "B phase opposite apparent energy");
                 }
                 break;
                 
                 case 0xA8:// [00][A8][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_ASSO_POWER;
-                    sprintf(name_1, "B相关联电能");    
+                    sprintf(name_1, "B correlation energy");
                 }
                 break;
 
                 case 0xA9:// [00][A9][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_FUND_HAVE_POWER;
-                    sprintf(name_1, "B相正向有功基波电能");    
+                    sprintf(name_1, "B-phase positive active fundamental energy");
                 }
                 break;
 
                 case 0xAA:// [00][96][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_FUND_HAVE_POWER;
-                    sprintf(name_1, "B相反向有功基波电能");    
+                    sprintf(name_1, "B-phase negative active fundamental energy");
                 }
                 break;
 
                 case 0xAB:// [00][07][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_HARM_HAVE_POWER;
-                    sprintf(name_1, "B相正向有功谐波电能");    
+                    sprintf(name_1, "B-phase positive active harmonic energy");
                 }
                 break;
 
                 case 0xAC:// [00][AC][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_HARM_HAVE_POWER;
-                    sprintf(name_1, "B相反向有功谐波电能");    
+                    sprintf(name_1, "B-phase negative active harmonic energy");
                 }
                 break;
 
                 case 0xAD:// [00][AD][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_COPR_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "B相铜损有功电能补偿量");    
+                    sprintf(name_1, "B-phase copper loss active energy compensation amount");
                 }
                 break;
 
                 case 0xAE:// [00][AE][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_CORE_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "B相铁损有功电能补偿量");    
+                    sprintf(name_1, "Phase B iron loss active energy compensation amount");
                 }
                 break;
                 case 0x3D:// [00][3D][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_HAVE_POWER;
-                    sprintf(name_1, "C相正向有功电能");    
+                    sprintf(name_1, "Phase C positive active energy");
                 }
                 break;
                 
                 case 0x3E:// [00][3E][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_HAVE_POWER;
-                    sprintf(name_1, "C相反向有功电能");    
+                    sprintf(name_1, "C-phase reverse active energy");
                 }
                 break;
                 
                 case 0x3F:// [00][3F][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_COMB_NONE_1_POWER;
-                    sprintf(name_1, "C相组合无功1电能");    
+                    sprintf(name_1, "C-phase combined reactive 1 energy");
                 }
                 break;
                 
                 case 0x40:// [00][40][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_COMB_NONE_2_POWER;
-                    sprintf(name_1, "C相组合无功2电能");    
+                    sprintf(name_1, "C-phase combined reactive 2 energy");
                 }
                 break;
                 
                 case 0x41:// [00][41][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "C相第一象限无功电能");    
+                    sprintf(name_1, "C-phase first quadrant reactive energy");
                 }
                 break;
                 
                 case 0x42:// [00][42][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "C相第二象限无功电能");    
+                    sprintf(name_1, "C-phase second quadrant reactive energy");
                 }
                 break;
                 
                 case 0x43:// [00][43][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "C相第三象限无功电能");    
+                    sprintf(name_1, "C-phase third quadrant reactive energy");
                 }
                 break;
                 
                 case 0x44:// [00][44][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "C相第四象限无功电能");    
+                    sprintf(name_1, "C-phase fourth quadrant reactive energy");
                 }
                 break;
 
                 case 0x45:// [00][45][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "C相正向视在电能");    
+                    sprintf(name_1, "C-phase positive apparent energy");
                 }
                 break;
                 
                 case 0x46:// [00][46][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_POWER;
-                    sprintf(name_1, "C相反向视在电能");    
+                    sprintf(name_1, "C phase opposite apparent energy");
                 }
                 break;
                 
                 case 0xBC:// [00][BC][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_ASSO_POWER;
-                    sprintf(name_1, "C相关联电能");    
+                    sprintf(name_1, "C-phase correlation energy");
                 }
                 break;
 
                 case 0xBD:// [00][BD][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_FUND_HAVE_POWER;
-                    sprintf(name_1, "C相正向有功基波电能");    
+                    sprintf(name_1, "C-phase positive active fundamental energy");
                 }
                 break;
 
                 case 0xBE:// [00][BE][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_FUND_HAVE_POWER;
-                    sprintf(name_1, "C相反向有功基波电能");    
+                    sprintf(name_1, "C-phase negative active fundamental energy");
                 }
                 break;
 
                 case 0xBF:// [00][BF][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_HARM_HAVE_POWER;
-                    sprintf(name_1, "C相正向有功谐波电能");    
+                    sprintf(name_1, "C-phase positive active harmonic energy");
                 }
                 break;
 
                 case 0xC0:// [00][C0][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_HARM_HAVE_POWER;
-                    sprintf(name_1, "C相反向有功谐波电能");    
+                    sprintf(name_1, "C negative active harmonic energy");
                 }
                 break;
 
                 case 0xC1:// [00][C1][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_COPR_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "C相铜损有功电能补偿量");    
+                    sprintf(name_1, "C-phase copper loss active energy compensation amount");
                 }
                 break;
 
                 case 0xC2:// [00][C2][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_CORE_LOSS_HAVE_POWER_COMP;
-                    sprintf(name_1, "C相铁损有功电能补偿量");    
+                    sprintf(name_1, "C-phase iron loss active energy compensation amount");
                 }
                 break;
                 
@@ -1469,18 +1467,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][01]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_HAVE_DEMAND_TOTAL;
-                        sprintf(name_1, "正向有功总最大需量及发生时间");                        
+                        sprintf(name_1, "Positive Total Active Maximum Demand and Time of Occurrence");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][01]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_FORTH_HAVE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "正向有功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Forward active rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][01]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_FORTH_HAVE_DEMAND_BLOCK;
-                        sprintf(name_1, "正向有功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Positive Total Maximum Active Demand and Time of Occurrence Data Block");
                     }
                     else    //[01][01]{(!(0-3F,FF))}[*]
                     {
@@ -1495,18 +1493,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][02]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_HAVE_DEMAND_TOTAL;
-                        sprintf(name_1, "反向有功总最大需量及发生时间");                        
+                        sprintf(name_1, "Reverse Active Total Maximum Demand and Time of Occurrence Data Block");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][02]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_HAVE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "反向有功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Reverse active rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][02]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_BACK_HAVE_DEMAND_BLOCK;
-                        sprintf(name_1, "反向有功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Reverse Active Maximum Demand and Time of Occurrence Data Block");
                     }
                     else    //[01][02]{(!(0-3F,FF))}[*]
                     {
@@ -1520,18 +1518,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][03]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_1_DEMAND_TOTAL;
-                        sprintf(name_1, "组合无功1总最大需量及发生时间");                        
+                        sprintf(name_1, "Combined reactive power 1 total maximum demand and time of occurrence");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[03][00]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_1_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "组合无功1费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Combined reactive1 rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][03]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_COMB_NONE_1_DEMAND_BLOCK;
-                        sprintf(name_1, "组合无功1最大需量及发生时间数据块");    
+                        sprintf(name_1, "Combined reactive 1 maximum demand and time of occurrence data block");
                     }
                     else    //[01][03]{(!(0-3F,FF))}[*]
                     {
@@ -1546,18 +1544,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][04]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_2_DEMAND_TOTAL;
-                        sprintf(name_1, "组合无功2总最大需量及发生时间");                        
+                        sprintf(name_1, "Combined reactive power 2 total maximum demand and time of occurrence data block");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[04][00]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_2_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "组合无功2费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Combined Reactive 2 Rate %d Maximum Demand and Time of Occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][04]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_COMB_NONE_2_DEMAND_BLOCK;
-                        sprintf(name_1, "组合无功2最大需量及发生时间数据块");    
+                        sprintf(name_1, "Combined reactive power 2 maximum demand and time of occurrence data block");
                     }
                     else    //[01][04]{(!(0-3F,FF))}[*]
                     {
@@ -1572,18 +1570,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][05]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_DEMAND_TOTAL;
-                        sprintf(name_1, "第一象限无功总最大需量及发生时间");                        
+                        sprintf(name_1, "Total maximum reactive power demand and time of occurrence in the first quadrant");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][05]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第一象限无功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Quadrant 1 reactive power rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][05]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_DEMAND_BLOCK;
-                        sprintf(name_1, "第一象限无功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Quadrant 1 Reactive Maximum Demand and Time of Occurrence Data Block");
                     }
                     else    //[01][05]{(!(0-3F,FF))}[*]
                     {
@@ -1598,18 +1596,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][06]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_DEMAND_TOTAL;
-                        sprintf(name_1, "第二象限无功总最大需量及发生时间");                        
+                        sprintf(name_1, "Quadrant 2 Total Maximum Reactive Demand and Time of Occurrence Data Block");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][06]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第二象限无功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Quadrant 2 Reactive Rate %d Maximum Demand and Time of Occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][06]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_DEMAND_BLOCK;
-                        sprintf(name_1, "第二象限无功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Quadrant 2 Reactive Maximum Demand and Time of Occurrence data block");
                     }
                     else    //[01][06]{(!(0-3F,FF))}[*]
                     {
@@ -1624,18 +1622,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][07]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_DEMAND_TOTAL;
-                        sprintf(name_1, "第三象限无功总最大需量及发生时间");                        
+                        sprintf(name_1, "Quadrant 3 Total Maximum Reactive Demand and Time of Occurrence");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][07]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第三象限无功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Quadrant 3 reactive power rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][07]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_DEMAND_BLOCK;
-                        sprintf(name_1, "第三象限无功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Quadrant 3 Reactive Maximum Demand and Time of Occurrence Data Block");
                     }
                     else    //[01][07]{(!(0-3F,FF))}[*]
                     {
@@ -1650,18 +1648,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][08]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_DEMAND_TOTAL;
-                        sprintf(name_1, "第四象限无功总最大需量及发生时间");                        
+                        sprintf(name_1, "Quadrant 4 Total Maximum Reactive Demand and Time of Occurrence Data Block");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][08]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "第四象限无功费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Quadrant 4 Reactive Rate %d Maximum Demand and Time of Occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][08]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_DEMAND_BLOCK;
-                        sprintf(name_1, "第四象限无功最大需量及发生时间数据块");    
+                        sprintf(name_1, "Quadrant 4 Reactive Maximum Demand and Time of Occurrence data block");
                     }
                     else    //[01][08]{(!(0-3F,FF))}[*]
                     {
@@ -1682,7 +1680,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_FORTH_APPARENT_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "正向视在费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Forward apparent rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][09]{FF}[*]
                     {                        
@@ -1702,18 +1700,18 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     if(0 == ucDi1)//[01][0A]{00}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_APPARENT_DEMAND_TOTAL;
-                        sprintf(name_1, "反向视在总最大需量及发生时间");                        
+                        sprintf(name_1, "Reverse apparent total maximum demand and time of occurrence");
                     }
                     else if(ucDi1 >= 0x01 && ucDi1 <= 0x3F) //[01][0A]{(1~3F)}[*]
                     {
                         type = E_D07_RULER_TYPE_BACK_APPARENT_DEMAND_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "反向视在费率%d最大需量及发生时间", ucDi1);    
+                        sprintf(name_1, "Reverse apparent rate %d maximum demand and time of occurrence", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[01][0A]{FF}[*]
                     {                        
                         type = E_D07_RULER_TYPE_BACK_APPARENT_DEMAND_BLOCK;
-                        sprintf(name_1, "反向视在最大需量及发生时间数据块");    
+                        sprintf(name_1, "Reverse apparent maximum demand and time of occurrence data block");
                     }
                     else    //[01][0A]{(!(0-3F,FF))}[*]
                     {
@@ -1733,210 +1731,210 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                 case 0x15:// [01][15][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_HAVE_POWER;
-                    sprintf(name_1, "A相正向有功最大需量及发生时间");    
+                    sprintf(name_1, "A-phase forward active maximum demand and occurrence time");
                 }
                 break;
                 
                 case 0x16:// [01][16][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_HAVE_POWER;
-                    sprintf(name_1, "A相反向有功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase A reverse active");
                 }
                 break;
                 
                 case 0x17:// [01][17][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_COMB_NONE_1_POWER;
-                    sprintf(name_1, "A相组合无功1最大需量及发生时间");    
+                    sprintf(name_1, "Phase A combined reactive1 maximum demand and occurrence time");
                 }
                 break;
                 
                 case 0x18:// [01][18][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_COMB_NONE_2_POWER;
-                    sprintf(name_1, "A相组合无功2最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase A combined reactive power 2");    
                 }
                 break;
                 
                 case 0x19:// [01][19][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "A相第一象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of reactive power in the first quadrant of phase A");    
                 }
                 break;
                 
                 case 0x1A:// [01][1A][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "A相第二象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand and time of occurrence in the second quadrant of phase A");    
                 }
                 break;
                 
                 case 0x1B:// [01][1B][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "A相第三象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the third quadrant of phase A and time of occurrence");    
                 }
                 break;
                 
                 case 0x1C:// [01][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "A相第四象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the fourth quadrant of phase A and time of occurrence");    
                 }
                 break;
 
                 case 0x1D:// [01][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "A相正向视在最大需量及发生时间");    
+                    sprintf(name_1, "A-phase forward apparent maximum demand and time of occurrence");    
                 }
                 break;
                 
                 case 0x1E:// [01][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_A_BACK_APPARENT_POWER;
-                    sprintf(name_1, "A相反向视在最大需量及发生时间");    
+                    sprintf(name_1, "Phase A opposite apparent maximum demand and occurrence time");    
                 }
                 break;
 
                 case 0x29:// [01][29][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_HAVE_POWER;
-                    sprintf(name_1, "B相正向有功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase B forward active power");    
                 }
                 break;
                 
                 case 0x2A:// [01][2A][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_HAVE_POWER;
-                    sprintf(name_1, "B相反向有功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum B-phase reverse active demand and time of occurrence");    
                 }
                 break;
                 
                 case 0x2B:// [01][2B][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_COMB_NONE_1_POWER;
-                    sprintf(name_1, "B相组合无功1最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of B-phase combined reactive power 1");    
                 }
                 break;
                 
                 case 0x2C:// [01][2C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_COMB_NONE_2_POWER;
-                    sprintf(name_1, "B相组合无功2最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase B combined reactive power 2");    
                 }
                 break;
                 
                 case 0x2D:// [01][2D][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "B相第一象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase B first quadrant reactive power");    
                 }
                 break;
                 
                 case 0x2E:// [01][2E][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "B相第二象限无功最大需量及发生时间");    
+                    sprintf(name_1, "B-phase second quadrant reactive power maximum demand and time of occurrence");    
                 }
                 break;
                 
                 case 0x2F:// [01][2F][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "B相第三象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the third quadrant of phase B and time of occurrence");    
                 }
                 break;
                 
                 case 0x30:// [01][30][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "B相第四象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the fourth quadrant of phase B and its occurrence time");    
                 }
                 break;
 
                 case 0x31:// [01][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "B相正向视在最大需量及发生时间");    
+                    sprintf(name_1, "B-phase forward apparent maximum demand and occurrence time");    
                 }
                 break;
                 
                 case 0x32:// [01][1C][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_B_BACK_APPARENT_POWER;
-                    sprintf(name_1, "B相反向视在最大需量及发生时间");    
+                    sprintf(name_1, "B phase opposite apparent maximum demand and time of occurrence");    
                 }
                 break;
                 
                 case 0x3D:// [01][3D][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_HAVE_POWER;
-                    sprintf(name_1, "C相正向有功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of C-phase forward active energy");    
                 }
                 break;
                 
                 case 0x3E:// [01][3E][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_HAVE_POWER;
-                    sprintf(name_1, "C相反向有功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of C-phase forward active power");    
                 }
                 break;
                 
                 case 0x3F:// [01][3F][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_COMB_NONE_1_POWER;
-                    sprintf(name_1, "C相组合无功1最大需量及发生时间");    
+                    sprintf(name_1, "Maximum demand and time of occurrence of phase C combined reactive power 1");    
                 }
                 break;
                 
                 case 0x40:// [01][40][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_COMB_NONE_2_POWER;
-                    sprintf(name_1, "C相组合无功2最大需量及发生时间");    
+                    sprintf(name_1, "C-phase combined reactive 2 maximum demand and occurrence time");    
                 }
                 break;
                 
                 case 0x41:// [01][41][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_1_NONE_POWER;
-                    sprintf(name_1, "C相第一象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand and time of occurrence in the first quadrant of phase C");    
                 }
                 break;
                 
                 case 0x42:// [01][42][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_2_NONE_POWER;
-                    sprintf(name_1, "C相第二象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the second quadrant of phase C and time of occurrence");    
                 }
                 break;
                 
                 case 0x43:// [01][43][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_3_NONE_POWER;
-                    sprintf(name_1, "C相第三象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the third quadrant of phase C and time of occurrence");    
                 }
                 break;
                 
                 case 0x44:// [01][44][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_QUAD_4_NONE_POWER;
-                    sprintf(name_1, "C相第四象限无功最大需量及发生时间");    
+                    sprintf(name_1, "Maximum reactive power demand in the fourth quadrant of phase C and its occurrence time");    
                 }
                 break;
 
                 case 0x45:// [01][45][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_FORTH_APPARENT_POWER;
-                    sprintf(name_1, "C相正向视在最大需量及发生时间");    
+                    sprintf(name_1, "C-phase positive apparent maximum demand and time of occurrence");    
                 }
                 break;
                 
                 case 0x46:// [01][46][00][*]
                 {
                     type = E_D07_RULER_TYPE_PHASE_C_BACK_APPARENT_POWER;
-                    sprintf(name_1, "C相反向视在最大需量及发生时间");    
+                    sprintf(name_1, "C-phase opposite apparent maximum demand and time of occurrence");    
                 }
                 break;
                 
@@ -1979,7 +1977,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "A相电压");    
+                            sprintf(name_1, "Phase A voltage");
                         }
                         break;
 
@@ -1989,7 +1987,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "B相电压");                                
+                            sprintf(name_1, "Phase B voltage");
                         }
                         break;
 
@@ -1999,7 +1997,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "C相电压");                                
+                            sprintf(name_1, "Phase C voltage");
                         }
                         break;
 
@@ -2009,7 +2007,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "电压数据块");                                    
+                            sprintf(name_1, "Voltage Data Block");
                         }
                         break;
 
@@ -2034,7 +2032,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XXX_XXX;                    
                             func     = trans_d07_data_XXX_XXX;
-                            sprintf(name_1, "A相电流");                                
+                            sprintf(name_1, "Phase A current");
                         }
                         break;
 
@@ -2044,7 +2042,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XXX_XXX;                    
                             func     = trans_d07_data_XXX_XXX;
-                            sprintf(name_1, "B相电流");                                                            
+                            sprintf(name_1, "Phase B current");
                         }
                         break;
 
@@ -2054,7 +2052,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XXX_XXX;                    
                             func     = trans_d07_data_XXX_XXX;
-                            sprintf(name_1, "C相电流");                                                            
+                            sprintf(name_1, "Phase C current");
                         }
                         break;
 
@@ -2064,7 +2062,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XXX_XXX;                    
                             func     = trans_d07_data_XXX_XXX;
-                            sprintf(name_1, "电流数据块");                                                            
+                            sprintf(name_1, "Current data block");
                         }
                         break;
 
@@ -2084,7 +2082,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时总有功功率");                            
+                            sprintf(name_1, "Total instantaneous active power");
                         }
                         break;
 
@@ -2094,7 +2092,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相有功功率");                            
+                            sprintf(name_1, "Instantaneous phase A active power");                            
                         }
                         break;
 
@@ -2104,7 +2102,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时B相有功功率");    
+                            sprintf(name_1, "Instantaneous phase B active power");    
                         }
                         break;
 
@@ -2114,7 +2112,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时C相有功功率");                                
+                            sprintf(name_1, "Instantaneous phase C active power");                                
                         }
                         break;
 
@@ -2124,7 +2122,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时有功功率数据块");                                
+                            sprintf(name_1, "Instantaneous active power data block");                                
                         }
                         break;
 
@@ -2144,7 +2142,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时总无功功率");    
+                            sprintf(name_1, "Instantaneous total reactive power");    
                         }
                         break;
                         
@@ -2154,7 +2152,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相无功功率");                                
+                            sprintf(name_1, "Instantaneous A-phase reactive power");                                
                         }
                         break;
 
@@ -2164,7 +2162,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相无功功率");                                                            
+                            sprintf(name_1, "Instantaneous A-phase reactive power");                                                            
                         }
                         break;
 
@@ -2174,7 +2172,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相无功功率");                                
+                            sprintf(name_1, "Instantaneous A-phase reactive power");                                
                         }
                         break;
 
@@ -2184,7 +2182,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时无功功率数据块");                                
+                            sprintf(name_1, "Instantaneous reactive power data block");                                
                         }
                         break;
 
@@ -2204,7 +2202,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时总视在功率");    
+                            sprintf(name_1, "Instantaneous total apparent power");    
                         }
                         break;
                         
@@ -2214,7 +2212,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相视在功率");                                
+                            sprintf(name_1, "Instantaneous A-phase apparent power");                                
                         }
                         break;
 
@@ -2224,7 +2222,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相视在功率");                                                            
+                            sprintf(name_1, "Instantaneous A-phase apparent power");                                                            
                         }
                         break;
 
@@ -2234,7 +2232,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时A相视在功率");                                
+                            sprintf(name_1, "Instantaneous A-phase apparent power");                                
                         }
                         break;
 
@@ -2244,7 +2242,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XX_XXXX;                    
                             func     = trans_d07_data_XX_XXXX;
-                            sprintf(name_1, "瞬时视在功率数据块");                                
+                            sprintf(name_1, "Instantaneous apparent power data block");                                
                         }
                         break;
 
@@ -2264,7 +2262,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_X_XXX;                    
                             func     = trans_d07_data_X_XXX;
-                            sprintf(name_1, "总功率因数");                                
+                            sprintf(name_1, "Total power factor");
                         }
                         break;
 
@@ -2274,7 +2272,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_X_XXX;                    
                             func     = trans_d07_data_X_XXX;
-                            sprintf(name_1, "A相功率因数");                                
+                            sprintf(name_1, "A-phase power factor");                                
                         }
                         break;
 
@@ -2284,7 +2282,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_X_XXX;                    
                             func     = trans_d07_data_X_XXX;
-                            sprintf(name_1, "B相功率因数");                                
+                            sprintf(name_1, "B-phase power factor");                                
                         }
                         break;
 
@@ -2294,7 +2292,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_X_XXX;                    
                             func     = trans_d07_data_X_XXX;
-                            sprintf(name_1, "C相功率因数");                                
+                            sprintf(name_1, "C-phase power factor");                                
                         }
                         break;
 
@@ -2304,7 +2302,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_X_XXX;                    
                             func     = trans_d07_data_X_XXX;
-                            sprintf(name_1, "总功率因数");                                
+                            sprintf(name_1, "Total Power Factor");                                
                         }
                         break;
 
@@ -2329,7 +2327,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "A相相角");                            
+                            sprintf(name_1, "Phase A phase angle");                            
                         }
                         break;
 
@@ -2339,7 +2337,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "B相相角");                                
+                            sprintf(name_1, "Phase B phase angle");                                
                         }
                         break;
 
@@ -2349,7 +2347,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "C相相角");                                
+                            sprintf(name_1, "C phase phase angle");                                
                         }
                         break;
 
@@ -2359,7 +2357,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XXX_X;                    
                             func     = trans_d07_data_XXX_X;
-                            sprintf(name_1, "相角数据块");                                
+                            sprintf(name_1, "Phase angle data block");                                
                         }
                         break;
 
@@ -2384,7 +2382,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "A相电压波形失真度");                                
+                            sprintf(name_1, "Phase A voltage waveform distortion");                                
                         }
                         break;
 
@@ -2394,7 +2392,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "B相电压波形失真度");                                
+                            sprintf(name_1, "Phase B voltage waveform distortion");                                
                         }
                         break;
 
@@ -2404,7 +2402,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "C相电压波形失真度");                                
+                            sprintf(name_1, "Phase C Voltage Waveform Distortion");                                
                         }
                         break;
 
@@ -2414,7 +2412,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "电压波形失真度数据块");                                
+                            sprintf(name_1, "Voltage waveform distortion data block");                                
                         }
                         break;
 
@@ -2439,7 +2437,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "A相电流波形失真度");                                
+                            sprintf(name_1, "Phase A current waveform distortion");                                
                         }
                         break;
 
@@ -2449,7 +2447,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "B相电流波形失真度");                                
+                            sprintf(name_1, "B-phase current waveform distortion");                                
                         }
                         break;
 
@@ -2459,7 +2457,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "C相电流波形失真度");                                
+                            sprintf(name_1, "Phase C current waveform distortion");                                
                         }
                         break;
 
@@ -2469,7 +2467,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 2;
                             format     = E_D07_FMT_XX_XX;                    
                             func     = trans_d07_data_XX_XX;
-                            sprintf(name_1, "电流波形失真度数据块");                                
+                            sprintf(name_1, "Current waveform distortion data block");                                
                         }
                         break;
 
@@ -2493,7 +2491,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "A相电压%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase A voltage %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0A][01]{FF}
                             {
@@ -2501,7 +2499,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "A相电压次谐波含量数据块");    
+                                sprintf(name_1, "A-phase voltage subharmonic content data block");    
                             }
                             else // [02][0A][01]{!(FF,1~15)}
                             {
@@ -2519,7 +2517,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "B相电压%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase B voltage %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0A][02]{FF}
                             {
@@ -2527,7 +2525,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "B相电压次谐波含量数据块");    
+                                sprintf(name_1, "B-phase voltage subharmonic content data block");    
                             }
                             else // [02][0A][02]{!(FF,1~15)}
                             {
@@ -2545,7 +2543,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "C相电压%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase C voltage %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0A][03]{FF}
                             {
@@ -2553,7 +2551,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "C相电压次谐波含量数据块");    
+                                sprintf(name_1, "Phase C voltage subharmonic content data block");    
                             }
                             else // [02][0A][03]{!(FF,1~15)}
                             {
@@ -2583,7 +2581,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "A相电流%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase A current %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0B][01]{FF}
                             {
@@ -2591,7 +2589,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "A相电流次谐波含量数据块");    
+                                sprintf(name_1, "A-phase current subharmonic content data block");    
                             }
                             else // [02][0B][01]{!(FF,1~15)}
                             {
@@ -2609,7 +2607,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "B相电流%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase B current %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0B][02]{FF}
                             {
@@ -2617,7 +2615,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "B相电流次谐波含量数据块");    
+                                sprintf(name_1, "B-phase current subharmonic content data block");    
                             }
                             else // [02][0B][02]{!(FF,1~15)}
                             {
@@ -2635,7 +2633,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
                                 para.harm    = (E_D07_PARA_HARM)ucDi0;
-                                sprintf(name_1, "C相电流%d次谐波含量", ucDi0);    
+                                sprintf(name_1, "Phase C current %dth harmonic content", ucDi0);    
                             }
                             else if(0xFF == ucDi0) // [02][0B][03]{FF}
                             {
@@ -2643,7 +2641,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "C相电流次谐波含量数据块");    
+                                sprintf(name_1, "C-phase current subharmonic content data block");    
                             }
                             else // [02][0B][03]{!(FF,1~15)}
                             {
@@ -2670,7 +2668,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXX_XXX;                    
                                 func     = trans_d07_data_XXX_XXX;
-                                sprintf(name_1, "零线电流");    
+                                sprintf(name_1, "Zero line current");    
                             }
                             break;
                             
@@ -2680,7 +2678,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "电网频率");    
+                                sprintf(name_1, "Grid frequency");    
                             }
                             break;
 
@@ -2690,7 +2688,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XX_XXXX;                    
                                 func     = trans_d07_data_XX_XXXX;
-                                sprintf(name_1, "一分钟有功总平均功率");    
+                                sprintf(name_1, "One-minute active total average power");    
                             }
                             break;
 
@@ -2700,7 +2698,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XX_XXXX;                    
                                 func     = trans_d07_data_XX_XXXX;
-                                sprintf(name_1, "当前有功需量");    
+                                sprintf(name_1, "Current active demand");    
                             }
                             break;
 
@@ -2710,7 +2708,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XX_XXXX;                    
                                 func     = trans_d07_data_XX_XXXX;
-                                sprintf(name_1, "当前无功需量");    
+                                sprintf(name_1, "Current reactive demand");    
                             }
                             break;
 
@@ -2720,7 +2718,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XX_XXXX;                    
                                 func     = trans_d07_data_XX_XXXX;
-                                sprintf(name_1, "当前视在需量");    
+                                sprintf(name_1, "Current apparent demand");    
                             }
                             break;
 
@@ -2730,7 +2728,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XXX_X;                    
                                 func     = trans_d07_data_X_XXX;
-                                sprintf(name_1, "表内温度");    
+                                sprintf(name_1, "Temperature inside the meter");
                             }
                             break;
 
@@ -2740,7 +2738,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "时钟电池电压(内部)");
+                                sprintf(name_1, "Clock battery voltage (internal)");
                             }
                             break;
 
@@ -2750,7 +2748,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;                    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "停电抄表电池电压(外部)");
+                                sprintf(name_1, "Outage meter reading battery voltage (external)");
                             }
                             break;
 
@@ -2760,7 +2758,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 4;
                                 format     = E_D07_FMT_XXXXXXXX;                    
                                 func     = trans_d07_data_XXXXXXXX;
-                                sprintf(name_1, "停电抄表电池电压(外部)");
+                                sprintf(name_1, "Outage meter reading battery voltage (external)"); // It's the good translation ?
                             }
                             break;
                             
@@ -2810,7 +2808,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 18;
                                 format     = E_D07_FMT_XXXXXX_6;                    
                                 func     = trans_d07_data_XXXXXX_6;
-                                sprintf(name_1, "ABC相失压次数，总累计时间");
+                                sprintf(name_1, "Number of ABC phase loss of voltage, total accumulated time");
                             }
                             else         // [03][01][00]{!(00)}
                             {
@@ -2828,7 +2826,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)A相失压记录", ucDi0);
+                                sprintf(name_1, "(Upper %d times) A-phase loss-of-voltage records", ucDi0);
                             }
                             else                            // [03][01][01]{!(1~A)}
                             {
@@ -2847,7 +2845,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)B相失压记录", ucDi0);
+                                sprintf(name_1, "(Upper %d times) B-phase loss of pressure recorded", ucDi0);
                             }
                             else                            // [03][01][02]{!(1~A)}
                             {
@@ -2866,7 +2864,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)C相失压记录", ucDi0);
+                                sprintf(name_1, "(Upper %d times) C-phase loss of pressure recorded", ucDi0);
                             }
                             else                            // [03][01][03]{!(1~A)}
                             {
@@ -2894,7 +2892,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 18;
                                 format     = E_D07_FMT_XXXXXX_6;                    
                                 func     = trans_d07_data_XXXXXX_6;
-                                sprintf(name_1, "ABC相欠压次数，总累计时间");
+                                sprintf(name_1, "ABC phase undervoltage count, total accumulated time");
                             }
                             else         // [03][02][00]{!(00)}
                             {
@@ -2912,7 +2910,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)A相欠压记录", ucDi0);
+                                sprintf(name_1, "(Upper %d times) A-phase undervoltage recording", ucDi0);
                             }
                             else                            // [03][02][01]{!(1~A)}
                             {
