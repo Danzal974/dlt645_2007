@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 				ret = show_ruler_info(ulRulerID);
 				if(ret != E_D07_OK)
 				{
-					printf("不存在的规约类型\n\n");
+					printf("Types of statutes that do not exist\n\n");
 				}
 				break;
 
