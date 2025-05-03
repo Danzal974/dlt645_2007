@@ -5030,7 +5030,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_NN_NNNN;    
                                     func     = trans_d07_data_NN_NNNN;
-                                    sprintf(name_1, "正向有功功率上限值");
+                                    sprintf(name_1, "Upper limit value of forward active power");
                                 }
                                 break;
                                 
@@ -5040,7 +5040,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_NN_NNNN;    
                                     func     = trans_d07_data_NN_NNNN;
-                                    sprintf(name_1, "反向有功功率上限值");
+                                    sprintf(name_1, "Reverse active power upper limit value");
                                 }
                                 break;
                                 
@@ -5050,7 +5050,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_NNN_N;    
                                     func     = trans_d07_data_NNN_N;
-                                    sprintf(name_1, "电压上限值");
+                                    sprintf(name_1, "Upper Voltage Limit");
                                 }
                                 break;
 
@@ -5060,7 +5060,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_NNN_N;    
                                     func     = trans_d07_data_NNN_N;
-                                    sprintf(name_1, "电压下限值");
+                                    sprintf(name_1, "Lower Voltage Limit");
                                 }
                                 break;
                                 
@@ -5087,7 +5087,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_MMDDNN_14;    
                             func     = trans_d07_data_MMDDNN_14;
-                            sprintf(name_1, "第一套时区表数据");
+                            sprintf(name_1, "First set of time zone table data");
                                 
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 8)// [04][01][00]{(1~8)}
@@ -5096,7 +5096,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_hhmmNN_14;    
                             func     = trans_d07_data_hhmmNN_14;
-                            sprintf(name_1, "第一套第%d日时段表数据", ucDi0);
+                            sprintf(name_1, "First set of time-sheet data for day %d", ucDi0);
                         }
                         else// [04][01][00]{!(0~8)}
                         {    
@@ -5121,7 +5121,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_MMDDNN_14;    
                             func     = trans_d07_data_MMDDNN_14;
-                            sprintf(name_1, "第二套时区表数据");
+                            sprintf(name_1, "Second set of time zone table data");
                                 
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 8)// [04][02][00]{(1~8)}
@@ -5130,7 +5130,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_hhmmNN_14;    
                             func     = trans_d07_data_hhmmNN_14;
-                            sprintf(name_1, "第二套第%d日时段表数据", ucDi0);
+                            sprintf(name_1, "Second set of %d day schedule data", ucDi0);
                         }
                         else// [04][02][00]{!(0~8)}
                         {    
@@ -5154,7 +5154,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_YYMMDDNN;    
                             func     = trans_d07_data_YYMMDDNN;
-                            sprintf(name_1, "第%d公共假日日期及日时段表号", ucDi0);
+                            sprintf(name_1, "%dPublic Holiday Date and Daytime Table Number", ucDi0);
                         }
                         else // [04][03][00]{!(1-FE)}
                         {
@@ -5178,7 +5178,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4;
                             format     = E_D07_FMT_NN_4;    
                             func     = trans_d07_data_YYMMDDNN;
-                            sprintf(name_1, "自动循环显示第%d屏显示数据项", ucDi0);
+                            sprintf(name_1, "Automatic cyclic display of %d screen display data items", ucDi0);
                         }
                         else // [04][04][01]{!(1-FE)}
                         {
@@ -5194,7 +5194,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4;
                             format     = E_D07_FMT_NN_4;    
                             func     = trans_d07_data_YYMMDDNN;
-                            sprintf(name_1, "按键循环显示第%d屏显示数据项", ucDi0);
+                            sprintf(name_1, "Pushbutton cyclic display of %d screen data items", ucDi0);
                         }
                         else // [04][04][02]{!(1-FE)}
                         {
@@ -5220,7 +5220,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 32;
                                 format     = E_D07_FMT_NN_32;    
                                 func     = trans_d07_data_NN_32;
-                                sprintf(name_1, "厂家软件版本号");
+                                sprintf(name_1, "Manufacturer's Software Version Number");
                             }
                             break;
 
@@ -5230,7 +5230,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 32;
                                 format     = E_D07_FMT_NN_32;    
                                 func     = trans_d07_data_NN_32;
-                                sprintf(name_1, "厂家硬件版本号");
+                                sprintf(name_1, "Manufacturer Hardware Version Number");
                             }
                             break;
                             
@@ -5240,7 +5240,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 32;
                                 format     = E_D07_FMT_NN_32;    
                                 func     = trans_d07_data_NN_32;
-                                sprintf(name_1, "厂家编号");
+                                sprintf(name_1, "Manufacturer's number");
                             }
                             break;
 
@@ -5296,7 +5296,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 5;
                             format     = E_D07_FMT_YYMMDDhhmm;    
                             func     = trans_d07_data_YYMMDDhhmm;
-                            sprintf(name_1, "定时冻结时间");
+                            sprintf(name_1, "Timed Freeze Time");
                         }
                         break;
                         
@@ -5306,7 +5306,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结正向有功电能数据");
+                            sprintf(name_1, "Timing Freeze Positive Active Energy Data");
                         }
                         break;
 
@@ -5316,7 +5316,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结反向有功电能数据");
+                            sprintf(name_1, "Timed Freeze Reverse Active Energy Data");
                         }
                         break;
                         case 3: //[05][00]{03}[*]
@@ -5325,7 +5325,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结组合无功1电能数据");
+                            sprintf(name_1, "Timing freeze combination reactive 1 energy data");
                         }
                         break;
 
@@ -5335,7 +5335,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结组合无功2电能数据");
+                            sprintf(name_1, "Timing Freeze Combined Reactive 2 Energy Data");
                         }
                         break;
                         case 5: //[05][00]{05}[*]
@@ -5344,7 +5344,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结第一象限无功电能数据");
+                            sprintf(name_1, "Freeze Quadrant 1 reactive energy data at regular intervals.");
                         }
                         break;
 
@@ -5354,7 +5354,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结第二象限无功电能数据");
+                            sprintf(name_1, "Freeze Quadrant 2 reactive energy data at regular intervals.");
                         }
                         break;
 
@@ -5364,7 +5364,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结第三象限无功电能数据");
+                            sprintf(name_1, "Timing Freeze Quadrant 3 Reactive Energy Data");
                         }
                         break;
 
@@ -5374,7 +5374,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "定时冻结第四象限无功电能数据");
+                            sprintf(name_1, "Freeze the fourth quadrant reactive energy data at regular intervals.");
                         }
                         break;
 
@@ -5384,7 +5384,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "定时冻结正向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Freeze forward active maximum demand data and occurrence time data at regular intervals.");
                         }
                         break;
                         
@@ -5394,7 +5394,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "定时冻结反向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Freeze reverse active maximum demand data and occurrence time data at regular intervals.");
                         }
                         break;
 
@@ -5404,7 +5404,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*3;
                             format     = E_D07_FMT_XX_XXXX_8;    
                             func     = trans_d07_data_XX_XXXX_8;
-                            sprintf(name_1, "定时冻结变量数据");
+                            sprintf(name_1, "Timed Freezing of Variable Data");
                         }
                         break;
 
@@ -5414,7 +5414,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 0;
                             format     = E_D07_FMT_UNKOWN;    
                             func     = NULL;
-                            sprintf(name_1, "定时冻结数据块");
+                            sprintf(name_1, "Timed Freeze Data Block");
                         }
                         break;
                         
@@ -5439,7 +5439,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 5;
                             format     = E_D07_FMT_YYMMDDhhmm;    
                             func     = trans_d07_data_YYMMDDhhmm;
-                            sprintf(name_1, "瞬时冻结时间");
+                            sprintf(name_1, "Instantaneous Freeze Time");
                         }
                         break;
                         
@@ -5449,7 +5449,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结正向有功电能数据");
+                            sprintf(name_1, "Instantaneous freezing of forward active energy data");
                         }
                         break;
 
@@ -5459,7 +5459,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结反向有功电能数据");
+                            sprintf(name_1, "Freeze reverse active energy data instantaneously");
                         }
                         break;
                         case 3: //[05][01]{03}[*]
@@ -5468,7 +5468,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结组合无功1电能数据");
+                            sprintf(name_1, "Instantaneous freezing of combined reactive1 energy data");
                         }
                         break;
 
@@ -5478,7 +5478,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结组合无功2电能数据");
+                            sprintf(name_1, "Instantaneous Freeze Combined Reactive 2 Energy Data");
                         }
                         break;
                         case 5: //[05][01]{05}[*]
@@ -5487,7 +5487,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结第一象限无功电能数据");
+                            sprintf(name_1, "Instantaneous Freeze Quadrant 1 Reactive Energy Data");
                         }
                         break;
 
@@ -5497,7 +5497,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结第二象限无功电能数据");
+                            sprintf(name_1, "Freeze Quadrant 2 reactive energy data instantaneously");
                         }
                         break;
 
@@ -5507,7 +5507,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结第三象限无功电能数据");
+                            sprintf(name_1, "Freeze Quadrant 3 Reactive Energy Data in a Flash");
                         }
                         break;
 
@@ -5517,7 +5517,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "瞬时冻结第四象限无功电能数据");
+                            sprintf(name_1, "Freeze Quadrant 4 Reactive Energy Data in a Flash");
                         }
                         break;
 
@@ -5527,7 +5527,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "瞬时冻结正向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Instantaneous freezing of positive active maximum demand data and time of occurrence data");
                         }
                         break;
                         
@@ -5537,7 +5537,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "瞬时冻结反向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Instantaneous Freeze Reverse Active Maximum Demand Data and Time of Occurrence Data");
                         }
                         break;
 
@@ -5547,7 +5547,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*3;
                             format     = E_D07_FMT_XX_XXXX_8;    
                             func     = trans_d07_data_XX_XXXX_8;
-                            sprintf(name_1, "瞬时冻结变量数据");
+                            sprintf(name_1, "Instantaneous freezing of variable data");
                         }
                         break;
 
@@ -5557,7 +5557,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 0;
                             format     = E_D07_FMT_UNKOWN;    
                             func     = NULL;
-                            sprintf(name_1, "瞬时冻结数据块");
+                            sprintf(name_1, "Instantaneous freezing of data blocks");
                         }
                         break;
                         
@@ -5581,7 +5581,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 5;
                             format     = E_D07_FMT_YYMMDDhhmm;    
                             func     = trans_d07_data_YYMMDDhhmm;
-                            sprintf(name_1, "两套时区表切换时间");
+                            sprintf(name_1, "Two sets of time zone meter switching time");
                         }
                         break;
                         
@@ -5591,7 +5591,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换正向有功电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching forward active energy data");
                         }
                         break;
 
@@ -5601,7 +5601,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换反向有功电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching reverse active energy data");
                         }
                         break;
                         case 3: //[05][02]{03}[*]
@@ -5610,7 +5610,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换组合无功1电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching combination reactive 1 energy data");
                         }
                         break;
 
@@ -5620,7 +5620,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换组合无功2电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching combination reactive 2 energy data");
                         }
                         break;
                         case 5: //[05][02]{05}[*]
@@ -5629,7 +5629,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换第一象限无功电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching first quadrant reactive energy data");
                         }
                         break;
 
@@ -5639,7 +5639,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换第二象限无功电能数据");
+                            sprintf(name_1, "Two sets of time zone meters switching second quadrant reactive energy data");
                         }
                         break;
 
@@ -5649,7 +5649,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换第三象限无功电能数据");
+                            sprintf(name_1, "Two sets of time zone meters switching third quadrant reactive energy data");
                         }
                         break;
 
@@ -5659,7 +5659,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套时区表切换第四象限无功电能数据");
+                            sprintf(name_1, "Two sets of time zone meter switching fourth quadrant reactive energy data");
                         }
                         break;
 
@@ -5669,7 +5669,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "两套时区表切换正向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Two sets of time zone meters switching forward active maximum demand data and occurrence time data");
                         }
                         break;
                         
@@ -5679,7 +5679,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "两套时区表切换反向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Two sets of time zone meter switching reverse active maximum demand data and occurrence time data");
                         }
                         break;
 
@@ -5689,7 +5689,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*3;
                             format     = E_D07_FMT_XX_XXXX_8;    
                             func     = trans_d07_data_XX_XXXX_8;
-                            sprintf(name_1, "两套时区表切换变量数据");
+                            sprintf(name_1, "Two sets of time zone meter switching variable data");
                         }
                         break;
 
@@ -5699,7 +5699,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 0;
                             format     = E_D07_FMT_UNKOWN;    
                             func     = NULL;
-                            sprintf(name_1, "两套时区表切换数据块");
+                            sprintf(name_1, "Two sets of time zone meter switching data blocks");
                         }
                         break;
                         
