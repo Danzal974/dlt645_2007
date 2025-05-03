@@ -3437,7 +3437,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)B相过流记录",ucDi0);
+                            sprintf(name_1, "(Précédent %d fois) Enregistrements de surintensité en phase B",ucDi0);
                         }
                     }
                     else if(3 == ucDi1)
@@ -3449,7 +3449,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)C相过流记录",ucDi0);
+                            sprintf(name_1, "(Précédent %d fois) Enregistrement de surintensité en phase C",ucDi0);
                         }
                     }
                     else          // [03][0C]{!(0~3)}[*]
@@ -3469,7 +3469,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "ABC相断流次数，总累计时间");
+                            sprintf(name_1, "Nombre de défaillances du courant de la phase ABC, temps total cumulé");
                         }
                         else         // [03][0D][00]{!(0)}
                         {
@@ -3486,7 +3486,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)A相断流记录",ucDi0);
+                            sprintf(name_1, "(Précédent %d fois) Enregistrements à maximum de courant en phase A",ucDi0);
                         }
                     }
                     else if(2 == ucDi1)
@@ -3498,7 +3498,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)B相断流记录",ucDi0);
+                            sprintf(name_1, "(Précédent %d fois) Enregistrements de surintensité en phase B",ucDi0);
                         }
                     }
                     else if(3 == ucDi1)
@@ -3510,7 +3510,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)C相断流记录",ucDi0);
+                            sprintf(name_1, "(%d fois précédents) Enregistrements de défaillance de courant en phase C",ucDi0);
                         }
                     }
                     else          // [03][0D]{!(0~3)}[*]
@@ -3529,7 +3529,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "ABC相潮流反向次数，总累计时间");
+                            sprintf(name_1, "Temps d'inversion du courant de la phase ABC, temps total cumulé");
                         }
                         else         // [03][0E][00]{!(0)}
                         {
@@ -3591,7 +3591,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "ABC相过载次数，总累计时间");
+                            sprintf(name_1, "Temps de surcharge des phases ABC, temps total cumulé");
                         }
                         else         // [03][0F][00]{!(0)}
                         {
