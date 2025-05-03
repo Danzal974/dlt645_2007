@@ -2929,7 +2929,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)B相欠压记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times) B phase undervoltage record", ucDi0);
                             }
                             else                            // [03][02][02]{!(1~A)}
                             {
@@ -2948,7 +2948,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)C相欠压记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times)C phase undervoltage record", ucDi0);
                             }
                             else                            // [03][02][03]{!(1~A)}
                             {
@@ -2993,7 +2993,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)A相过压记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times)Phase A overvoltage record", ucDi0);
                             }
                             else                            // [03][03][01]{!(1~A)}
                             {
@@ -3012,7 +3012,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)B相过压记录", ucDi0);
+                                sprintf(name_1, "(Record of phase B overvoltage (last %d)", ucDi0);
                             }
                             else                            // [03][03][02]{!(1~A)}
                             {
@@ -3031,7 +3031,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)C相过压记录", ucDi0);
+                                sprintf(name_1, "((Previous %d times)C phase overvoltage recording", ucDi0);
                             }
                             else                            // [03][03][03]{!(1~A)}
                             {
@@ -3060,7 +3060,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 18;
                                 format     = E_D07_FMT_XXXXXX_6;                    
                                 func     = trans_d07_data_XXXXXX_6;
-                                sprintf(name_1, "ABC相断相次数，总累计时间");
+                                sprintf(name_1, "Number of ABC phase breaks, total accumulated time");
                             }
                             else         // [03][04][00]{!(00)}
                             {
@@ -3078,7 +3078,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)A相断相记录", ucDi0);
+                                sprintf(name_1, "(Previous%d times)Phase A phase break record", ucDi0);
                             }
                             else                            // [03][04][01]{!(1~A)}
                             {
@@ -3096,7 +3096,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)B相断相记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times)Phase B phase break record", ucDi0);
                             }
                             else                            // [03][04][02]{!(1~A)}
                             {
@@ -3115,7 +3115,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_LOSS_LESS_VOLT;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_loss_less_volt;
-                                sprintf(name_1, "(上%d次)C相断相记录", ucDi0);
+                                sprintf(name_1, "(Previous%d times) Phase C phase break recording", ucDi0);
                             }
                             else                            // [03][04][03]{!(1~A)}
                             {
@@ -3140,7 +3140,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "全失压次数，总累计时间");
+                            sprintf(name_1, "Number of full loss of pressure, total accumulated time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][05][00]{(1~A)}
                         {
@@ -3149,7 +3149,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_YYMMDDhhmmss_XXX_XXX_YYMMDDhhmmss;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_YYMMDDhhmmss_XXX_XXX_YYMMDDhhmmss;
-                            sprintf(name_1, "(上%d次)全失压发生时刻，电流值，结束时刻",ucDi0);
+                            sprintf(name_1, "(Upper %d times) Moment of onset of total loss of voltage, current value, end moment", ucDi0);
                         }
                         else         // [03][05][00]{!(1~A)}
                         {
@@ -3174,7 +3174,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "辅助电源失电发生次数，总累计时间");
+                            sprintf(name_1, "Number of occurrences of auxiliary power loss, total accumulated time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][06][00]{(1~A)}
                         {
@@ -3183,7 +3183,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_YYMMDDhhmmss;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_YYMMDDhhmmss;
-                            sprintf(name_1, "(上%d次)辅助电源失电发生时刻，结束时刻",ucDi0);
+                            sprintf(name_1, "(The moment of occurrence of the auxiliary power loss (upper %d times) and the moment of its end", ucDi0);
                         }
                         else         // [03][06][00]{!(1~A)}
                         {
@@ -3208,7 +3208,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "电压逆相序总次数，总累计时间");
+                            sprintf(name_1, "Total number of voltage reversals in phase sequence, total cumulative time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][07][00]{(1~A)}
                         {
@@ -3217,7 +3217,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_ANTI_PHASE;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)电压逆相序记录",ucDi0);
+                            sprintf(name_1, "(Previous %d times) Voltage reverse phase sequence recording", ucDi0);
                         }
                         else         // [03][07][00]{!(1~A)}
                         {
@@ -3243,7 +3243,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "电流逆相序总次数，总累计时间");
+                            sprintf(name_1, "Total number of times current is in reverse phase sequence, total accumulated time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][08][00]{(1~A)}
                         {
@@ -3252,7 +3252,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_ANTI_PHASE;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)电流逆相序记录",ucDi0);
+                            sprintf(name_1, "(Upper %d times) Current reverse phase sequence recording", ucDi0);
                         }
                         else         // [03][08][00]{!(1~A)}
                         {
@@ -3278,7 +3278,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "电压不平衡总次数，总累计时间");
+                            sprintf(name_1, "Total number of voltage imbalances, total cumulative time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][09][00]{(1~A)}
                         {
@@ -3287,7 +3287,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_UN_BALANCE;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_un_balance;
-                            sprintf(name_1, "(上%d次)电压不平衡记录",ucDi0);
+                            sprintf(name_1, "Voltage unbalance records (last %d times)", ucDi0);
                         }
                         else         // [03][09][00]{!(1~A)}
                         {
@@ -3314,7 +3314,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "电流不平衡总次数，总累计时间");
+                            sprintf(name_1, "Total number of current imbalances, total accumulated time");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0xA) // [03][0A][00]{(1~A)}
                         {
@@ -3323,7 +3323,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_UN_BALANCE;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_un_balance;
-                            sprintf(name_1, "(上%d次)电流不平衡记录",ucDi0);
+                            sprintf(name_1, "Current imbalance record (last %d times)", ucDi0);
                         }
                         else         // [03][0A][00]{!(1~A)}
                         {
@@ -3348,7 +3348,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "ABC相失流次数，总累计时间");
+                            sprintf(name_1, "Number of ABC phase loss of flow, total accumulated time");
                         }
                         else         // [03][0B][00]{!(0)}
                         {
@@ -3365,7 +3365,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)A相失流记录",ucDi0);
+                            sprintf(name_1, "(Last %d time) Phase A loss of current recorded",ucDi0);
                         }
                     }
                     else if(2 == ucDi1)
@@ -3377,7 +3377,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)B相失流记录",ucDi0);
+                            sprintf(name_1, "(Last %d time) Phase B loss of current record.",ucDi0);
                         }
                     }
                     else if(3 == ucDi1)
@@ -3389,7 +3389,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)C相失流记录",ucDi0);
+                            sprintf(name_1, "(Previous %d times) Phase C loss of current record.",ucDi0);
                         }
                     }
                     else          // [03][0B]{!(0~3)}[*]
@@ -3425,7 +3425,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)A相过流记录",ucDi0);
+                            sprintf(name_1, "(Previous %d times) Phase A overcurrent records",ucDi0);
                         }
                     }
                     else if(2 == ucDi1)
