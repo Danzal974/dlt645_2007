@@ -5040,7 +5040,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_NN_NNNN;    
                                     func     = trans_d07_data_NN_NNNN;
-                                    sprintf(name_1, "Reverse active power upper limit value");
+                                    sprintf(name_1, "Reverse active power limit value");
                                 }
                                 break;
                                 
@@ -5050,7 +5050,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_NNN_N;    
                                     func     = trans_d07_data_NNN_N;
-                                    sprintf(name_1, "Upper Voltage Limit");
+                                    sprintf(name_1, "Voltage limit value");
                                 }
                                 break;
 
@@ -5060,7 +5060,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_NNN_N;    
                                     func     = trans_d07_data_NNN_N;
-                                    sprintf(name_1, "Lower Voltage Limit");
+                                    sprintf(name_1, "Voltage lower limit value");
                                 }
                                 break;
                                 
@@ -5087,7 +5087,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_MMDDNN_14;    
                             func     = trans_d07_data_MMDDNN_14;
-                            sprintf(name_1, "First set of time zone table data");
+                            sprintf(name_1, "First set of time-zone table data");
                                 
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 8)// [04][01][00]{(1~8)}
@@ -5121,7 +5121,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3*14;
                             format     = E_D07_FMT_MMDDNN_14;    
                             func     = trans_d07_data_MMDDNN_14;
-                            sprintf(name_1, "Second set of time zone table data");
+                            sprintf(name_1, "Second set of time-zone table data");
                                 
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 8)// [04][02][00]{(1~8)}
@@ -5178,7 +5178,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4;
                             format     = E_D07_FMT_NN_4;    
                             func     = trans_d07_data_YYMMDDNN;
-                            sprintf(name_1, "Automatic cyclic display of %d screen display data items", ucDi0);
+                            sprintf(name_1, "Automatic cyclic display of %d screen data items", ucDi0);
                         }
                         else // [04][04][01]{!(1-FE)}
                         {

@@ -3,3 +3,4 @@ translate.txt
 *.o
 *.d
 1
+*.backup
