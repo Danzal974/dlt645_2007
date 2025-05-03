@@ -4684,7 +4684,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "有功组合方式特征字");
+                                    sprintf(name_1, "Active combination method characterization");
                                 }
                                 break;
 
@@ -4694,7 +4694,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "无功组合方式1特征字");
+                                    sprintf(name_1, "Reactive combination method 1 characteristic word");
                                 }
                                 break;
 
@@ -4704,7 +4704,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "无功组合方式2特征字");
+                                    sprintf(name_1, "Reactive combination method 2 characteristic word");
                                 }
                                 break;
                                 
@@ -4724,7 +4724,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "调制型红外光口通信速率特征字");
+                                    sprintf(name_1, "Modulated Infrared Optical Port Communication Rate Characterization Word");
                                 }
                                 break;
 
@@ -4734,7 +4734,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "接触式红外光口通信速率特征字");
+                                    sprintf(name_1, "Contact infrared optical port communication rate characterization word");
                                 }
                                 break;
 
@@ -4744,7 +4744,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "通信口 1 通信速率特征字");
+                                    sprintf(name_1, "Communication port 1 Communication rate characterization word");
                                 }
                                 break;
 
@@ -4754,7 +4754,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "通信口 2 通信速率特征字");
+                                    sprintf(name_1, "Communication port 2 Communication rate characterization word");
                                 }
                                 break;
 
@@ -4764,7 +4764,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "通信口 3 通信速率特征字");
+                                    sprintf(name_1, "Communication port 3 Communication rate character");
                                 }
                                 break;
                                 default:// [04][00][07]{!(1~3)}
@@ -4781,7 +4781,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 1;
                                 format     = E_D07_FMT_NN;    
                                 func     = trans_d07_data_NN;
-                                sprintf(name_1, "周休日特征字");
+                                sprintf(name_1, "Characterization of weekly rest days");
                             }
                             else if(2 == ucDi0)// [04][00][08]{02}
                             {
@@ -4789,7 +4789,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 1;
                                 format     = E_D07_FMT_NN;    
                                 func     = trans_d07_data_NN;
-                                sprintf(name_1, "周休日采用的日时段表号");
+                                sprintf(name_1, "Daytime table numbers used on weekly holidays");
                             }
                             else// [04][00][08]{!(1~2)}
                             {
@@ -4806,7 +4806,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 1;
                                 format     = E_D07_FMT_NN;    
                                 func     = trans_d07_data_NN;
-                                sprintf(name_1, "周休日特征字");
+                                sprintf(name_1, "??Characterization of weekly rest days ?OVERLOAD?");
                             }
                             else if(2 == ucDi0)// [04][00][08]{02}
                             {
@@ -4814,7 +4814,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 1;
                                 format     = E_D07_FMT_NN;    
                                 func     = trans_d07_data_NN;
-                                sprintf(name_1, "周休日采用的日时段表号");
+                                sprintf(name_1, "??Daytime table numbers used for weekly rest days ?FREEZE?");
                             }
                             else// [04][00][08]{!(1~2)}
                             {
@@ -4831,7 +4831,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 4;
                                 format     = E_D07_FMT_MMDDhhmm;    
                                 func     = trans_d07_data_MMDDhhmm;
-                                sprintf(name_1, "负荷记录起始时间");
+                                sprintf(name_1, "??Load recording start time ??OVERLOAD??");
                             }
                             else if (ucDi0 >= 2 && ucDi0 <= 7) // [04][00][0A]{(2~7)}
                             {
@@ -4839,7 +4839,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_NNNN;    
                                 func     = trans_d07_data_NNNN;
-                                sprintf(name_1, "第 %d 类负荷记录间隔时间", ucDi0 - 1);
+                                sprintf(name_1, "%d Load recording interval", ucDi0 - 1);
                             }
                             else// [04][00][0A]{!(1~7)}
                             {
@@ -4856,7 +4856,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_DDhh;    
                                 func     = trans_d07_data_DDhh;
-                                sprintf(name_1, "每月第 1 结算日");
+                                sprintf(name_1, "1st settlement day of each month");
                             }
                             else if(2 == ucDi0) // [04][00][0B]{02}
                             {
@@ -4864,7 +4864,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_DDhh;    
                                 func     = trans_d07_data_DDhh;
-                                sprintf(name_1, "每月第 2 结算日");
+                                sprintf(name_1, "2nd settlement day of each month");
                             }
                             else if(3 == ucDi0)// [04][00][0B]{03}
                             {
@@ -4872,7 +4872,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_DDhh;    
                                 func     = trans_d07_data_DDhh;
-                                sprintf(name_1, "每月第 3 结算日");
+                                sprintf(name_1, "3rd settlement day of each month");
                             }
                             else// [04][00][0B]{!(1~3)}
                             {
@@ -4889,7 +4889,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 4;
                                 format     = E_D07_FMT_NN_4;    
                                 func     = trans_d07_data_NN_4;
-                                sprintf(name_1, "%d 级密码", ucDi0 -1);
+                                sprintf(name_1, "%d level 2 password", ucDi0 -1);
                             }
                             else// [04][00][0C]{!(1~A)}
                             {
@@ -4908,7 +4908,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "A相电导系数");
+                                    sprintf(name_1, "Phase A conductivity");
                                 }
                                 break;
                                 case 2:// [04][00][0D]{02}
@@ -4917,7 +4917,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "A相电纳系数");
+                                    sprintf(name_1, "A-phase dielectric coefficient");
                                     
                                 }
                                 break;
@@ -4927,7 +4927,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "A相电阻系数");
+                                    sprintf(name_1, "A-phase resistance coefficient");
                                 }
                                 break;
                                 case 4:// [04][00][0D]{04}
@@ -4936,7 +4936,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "A相电抗系数");
+                                    sprintf(name_1, "A-phase reactance coefficient");
                                 }
                                 break;
                                 case 5:// [04][00][0D]{05}
@@ -4945,7 +4945,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "B相电导系数");
+                                    sprintf(name_1, "B-phase conductivity");
                                 }
                                 break;
                                 
@@ -4955,7 +4955,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "B相电纳系数");
+                                    sprintf(name_1, "B-phase dielectric coefficient");
                                 }
                                 break;
                                 case 7:// [04][00][0D]{07}
@@ -4964,7 +4964,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "B相电阻系数");
+                                    sprintf(name_1, "B-phase resistance coefficient");
                                 }
                                 break;
                                 case 8:// [04][00][0D]{08}
@@ -4973,7 +4973,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "B相电抗系数");
+                                    sprintf(name_1, "B-phase reactance coefficient");
                                 }
                                 break;
                                 case 9:// [04][00][0D]{09}
@@ -4982,7 +4982,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "C相电导系数");
+                                    sprintf(name_1, "C-phase conductivity coefficient");
                                 }
                                 break;
                                 case 0xA:// [04][00][0D]{0A}
@@ -4991,7 +4991,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "C相电纳系数");
+                                    sprintf(name_1, "C-phase dielectric coefficient");
                                 }
                                 break;
                                 case 0xB:// [04][00][0D]{0B}
@@ -5000,7 +5000,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "C相电阻系数");
+                                    sprintf(name_1, "C-phase resistance coefficient");
                                 }
                                 break;
                                 case 0xC:// [04][00][0D]{0C}
@@ -5009,7 +5009,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_N_NNN;    
                                     func     = trans_d07_data_N_NNN;
-                                    sprintf(name_1, "C相电抗系数");
+                                    sprintf(name_1, "C-phase reactance coefficient");
                                 }
                                 break;
                                 
