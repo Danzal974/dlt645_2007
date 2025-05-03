@@ -1,3 +1,5 @@
 .DS_Store
 translate.txt
-
+*.o
+*.d
+1

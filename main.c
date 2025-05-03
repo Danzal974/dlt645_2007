@@ -2,7 +2,8 @@
 #include <unistd.h>
 #include <getopt.h>
 #include "dlt645_api_07.h"
-
+#include <stdlib.h>
+#include <string.h>
 
 int g_num = 0;
 void test_get_ruler_info();

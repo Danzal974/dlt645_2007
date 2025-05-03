@@ -23,9 +23,9 @@
 #pragma pack(push) // one-byte alignment 采用一字节对齐
 #pragma pack(1)
 
-/*  commissioning switch  调试开关  */
+/*  debugging switch  调试开关  */
 #define D07_DEBUG_ON
-#undef D07_DEBUG_ON //  Official version commented out 正式版注释掉
+//#undef D07_DEBUG_ON //  Official version commented out 正式版注释掉
 
 #ifdef D07_DEBUG_ON
 
