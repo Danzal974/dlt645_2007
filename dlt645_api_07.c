@@ -5723,7 +5723,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 5;
                             format     = E_D07_FMT_YYMMDDhhmm;    
                             func     = trans_d07_data_YYMMDDhhmm;
-                            sprintf(name_1, "两套日时段表切换时间");
+                            sprintf(name_1, "Switching time of two sets of time-of-day meters");
                         }
                         break;
                         
@@ -5733,7 +5733,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换正向有功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meter switching forward active energy data");
                         }
                         break;
 
@@ -5743,7 +5743,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换反向有功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meter switching reverse active energy data");
                         }
                         break;
                         case 3: //[05][03]{03}[*]
@@ -5752,7 +5752,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换组合无功1电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meter switching combined reactive1 energy data");
                         }
                         break;
 
@@ -5762,7 +5762,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换组合无功2电能数据");
+                            sprintf(name_1, "Two sets of day-time meter switching combination reactive 2 energy data");
                         }
                         break;
                         case 5: //[05][03]{05}[*]
@@ -5771,7 +5771,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换第一象限无功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meters switching quadrant 1 reactive energy data");
                         }
                         break;
 
@@ -5781,7 +5781,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换第二象限无功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meters switching quadrant 2 reactive energy data");
                         }
                         break;
 
@@ -5791,7 +5791,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换第三象限无功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meters switching third quadrant reactive energy data");
                         }
                         break;
 
@@ -5801,7 +5801,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 4*64;
                             format     = E_D07_FMT_XXXXXX_XX;    
                             func     = trans_d07_data_XXXXXX_XX;
-                            sprintf(name_1, "两套日时段表切换第四象限无功电能数据");
+                            sprintf(name_1, "Two sets of time-of-day meter switching fourth quadrant reactive energy data");
                         }
                         break;
 
@@ -5811,7 +5811,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "两套日时段表切换正向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Two sets of time-of-day meters switching forward active maximum demand data and occurrence time data");
                         }
                         break;
                         
@@ -5821,7 +5821,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*64;
                             format     = E_D07_FMT_XX_XXXX_YYMMDDhhmm;    
                             func     = trans_d07_data_XX_XXXX_YYMMDDhhmm;
-                            sprintf(name_1, "两套日时段表切换反向有功最大需量数据及发生时间数据");
+                            sprintf(name_1, "Two sets of time-of-day meters switching reverse active maximum demand data and occurrence time data");
                         }
                         break;
 
@@ -5831,7 +5831,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 8*3;
                             format     = E_D07_FMT_XX_XXXX_8;    
                             func     = trans_d07_data_XX_XXXX_8;
-                            sprintf(name_1, "两套日时段表切换变量数据");
+                            sprintf(name_1, "Two sets of daytime schedules switching variable data");
                         }
                         break;
 
@@ -5841,7 +5841,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 0;
                             format     = E_D07_FMT_UNKOWN;    
                             func     = NULL;
-                            sprintf(name_1, "两套日时段表切换数据块");
+                            sprintf(name_1, "Switching data blocks for two sets of daily time tables");
                         }
                         break;
                         
@@ -5886,7 +5886,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 1;
                         format     = E_D07_FMT_NN;    
                         func     = trans_d07_data_NN;
-                        sprintf(name_1, "给定时间记录块");    
+                        sprintf(name_1, "Given Time Record Block");    
                     }
                     break;
 
@@ -5896,7 +5896,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 6;
                         format     = E_D07_FMT_YYMMDDhhmmNN;    
                         func     = trans_d07_data_YYMMDDhhmmNN;
-                        sprintf(name_1, "给定时间记录块");    
+                        sprintf(name_1, "Given Time Record Block");    
                     }
                     break;
 
@@ -5906,7 +5906,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 1;
                         format     = E_D07_FMT_NN;    
                         func     = trans_d07_data_NN; // 固定值01
-                        sprintf(name_1, "给定时间记录块");    
+                        sprintf(name_1, "Given time block");    
                     }
                     break;
 
@@ -5925,7 +5925,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 1;
                         format     = E_D07_FMT_NN;    
                         func     = trans_d07_data_NN;
-                        sprintf(name_1, "第%d类负荷最早记录块", ucDi2);    
+                        sprintf(name_1, "Class %d load earliest record block", ucDi2);    
                     }
                     break;
 
@@ -5935,7 +5935,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 6;
                         format     = E_D07_FMT_YYMMDDhhmmNN;    
                         func     = trans_d07_data_YYMMDDhhmmNN;
-                        sprintf(name_1, "第%d类负荷给定时间记录块", ucDi2);    
+                        sprintf(name_1, "Class %d load given time record block", ucDi2);    
                     }
                     break;
 
@@ -5945,7 +5945,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         len        = 1;
                         format     = E_D07_FMT_NN;    
                         func     = trans_d07_data_NN; // 固定值01
-                        sprintf(name_1, "第%d类负荷最近一个记录块", ucDi2);    
+                        sprintf(name_1, "The most recent record block for the %d class of load", ucDi2);    
                     }
                     break;
 
@@ -9765,7 +9765,7 @@ eD07Err trans_d07_data_recd_zone_prog(E_D07_TRANS_FLG flag, char *user, char *fr
         pDataUser->sZoneSet2[13].DD = d07_str_to_num(&strUsr[i+=2], 2);
         pDataUser->sZoneSet2[13].NN = d07_str_to_num(&strUsr[i+=2], 2);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -10011,7 +10011,7 @@ eD07Err trans_d07_data_recd_adjust_time(E_D07_TRANS_FLG flag, char *user, char *
         pDataUser->sAftTime.mm = d07_str_to_num(&strUsr[i+=2], 2);
         pDataUser->sAftTime.ss = d07_str_to_num(&strUsr[i+=2], 2);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -10270,7 +10270,7 @@ eD07Err trans_d07_data_recd_less_more_loss_elec(E_D07_TRANS_FLG flag, char *user
         pDataUser->sFactorC.fNonePowerRate= d07_str_to_double(&strUsr[i+=6], 6, 2);
         pDataUser->sFactorC.fPowerRateFactor = d07_str_to_double(&strUsr[i+=6], 4, 1);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -10445,7 +10445,7 @@ eD07Err trans_d07_data_recd_event_clear(E_D07_TRANS_FLG flag, char *user, char *
         pDataUser->ulEventID = d07_hex_str_to_long(&strUsr[i+=2], 8);
         
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -11043,7 +11043,7 @@ eD07Err trans_d07_data_recd_demand_clear(E_D07_TRANS_FLG flag, char *user, char 
         pDataUser->sPhaseC.sNoneDemandQuad4.hh = d07_str_to_num(&strUsr[i+=2], 2);
         pDataUser->sPhaseC.sNoneDemandQuad4.mm = d07_str_to_num(&strUsr[i+=2], 2);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -11429,7 +11429,7 @@ eD07Err trans_d07_data_recd_meter_clear(E_D07_TRANS_FLG flag, char *user, char *
         pDataUser->sPhaseC.dNonePowerQuad3= d07_str_to_double(&strUsr[i+=8], 8, 6);
         pDataUser->sPhaseC.dNonePowerQuad4= d07_str_to_double(&strUsr[i+=8], 8, 6);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -11600,7 +11600,7 @@ eD07Err trans_d07_data_recd_meter_prog(E_D07_TRANS_FLG flag, char *user, char *f
         pDataUser->ulRulerID[8] = (UINT32)d07_hex_str_to_long(&str[i+=8], 8);
         pDataUser->ulRulerID[9] = (UINT32)d07_hex_str_to_long(&str[i+=8], 8);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -11736,7 +11736,7 @@ eD07Err trans_d07_data_recd_volt_pass_percent(E_D07_TRANS_FLG flag, char *user, 
         pDataUser->sTimeVoltValueMin.hh            = d07_str_to_num(&strUsr[i+=2], 2);
         pDataUser->sTimeVoltValueMin.mm            = d07_str_to_num(&strUsr[i+=2], 2);
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -11879,7 +11879,7 @@ eD07Err trans_d07_data_recd_weekday_prog(E_D07_TRANS_FLG flag, char *user, char 
         //ulEventID
         pDataUser->ucTableNum = d07_str_to_num(&strUsr[i+=2], 2);
         
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -12073,7 +12073,7 @@ eD07Err trans_d07_data_recd_holiday_prog(E_D07_TRANS_FLG flag, char *user, char 
             pDataUser->operator[j] = d07_str_to_num(&strUsr[i+=2], 2);
         }
         
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -12258,7 +12258,7 @@ eD07Err trans_d07_data_recd_power_prog(E_D07_TRANS_FLG flag, char *user, char *f
         pDataUser->ucWord = d07_str_to_num(&strUsr[i+=2], 2);
         
 
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
@@ -12400,7 +12400,7 @@ eD07Err trans_d07_data_recd_payoff_prog(E_D07_TRANS_FLG flag, char *user, char *
         pDataUser->sDay3.DD = d07_str_to_num(&strUsr[i+=2], 2);
         pDataUser->sDay3.hh = d07_str_to_num(&strUsr[i+=2], 2);
         
-        //数据输出
+        //Data Output
         #ifdef D07_DEBUG_ON
         if(D07_ON == g_need_pack_07)
         {
