@@ -3408,7 +3408,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 6;
                             format     = E_D07_FMT_XXXXXX_2;    
                             func     = trans_d07_data_XXXXXX_2;
-                            sprintf(name_1, "ABC相过流次数，总累计时间");
+                            sprintf(name_1, "Comptage des surintensités de la phase ABC, temps total accumulé");
                         }
                         else         // [03][0C][00]{!(0)}
                         {
@@ -3546,7 +3546,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_less_more_loss_elec;
-                            sprintf(name_1, "(上%d次)A相潮流反向记录",ucDi0);
+                            sprintf(name_1, "(Enregistrements d'inversion du courant de marée en phase A (%d times)",ucDi0);
                         }
                     }
                     else if(2 == ucDi1)
@@ -3558,7 +3558,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)B相潮流反向记录",ucDi0);
+                            sprintf(name_1, "(%d times) Enregistrements d'inversion du courant de marée de la phase B",ucDi0);
                         }
                     }
                     else if(3 == ucDi1)
@@ -3570,7 +3570,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)C相潮流反向记录",ucDi0);
+                            sprintf(name_1, "(Précédent %d fois)Enregistrements d'inversion du courant de la phase C",ucDi0);
                         }
                     }
                     else          // [03][0E]{!(0~3)}[*]
@@ -3608,7 +3608,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)A相过载记录",ucDi0);
+                            sprintf(name_1, "(Précédent%d) Enregistrements de surcharge de la phase A",ucDi0);
                         }
                     }
                     else if(2 == ucDi1)
@@ -3620,7 +3620,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)B相过载记录",ucDi0);
+                            sprintf(name_1, "(Précédent%d)Enregistrements de surcharge de la phase B",ucDi0);
                         }
                     }
                     else if(3 == ucDi1)
@@ -3632,7 +3632,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_RECD_LESS_MORE_LOSS_ELEC;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_recd_anti_phase;
-                            sprintf(name_1, "(上%d次)C相过载记录",ucDi0);
+                            sprintf(name_1, "(Précédent%d)Enregistrements de surcharge de la phase C",ucDi0);
                         }
                     }
                     else          // [03][0F]{!(0~3)}[*]
@@ -3649,17 +3649,17 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         return E_D07_ERRO_UNKOWN_ID;
                     }
                     
-                    // 封装结算日字符串    
+                    // Chaîne de la date de règlement encapsulée    
                     if(ucDi0 == 0)
                     {
-                        sprintf(strPayOff, "%s", "(当前)");        
+                        sprintf(strPayOff, "%s", "(être confronté)");        
                     }
                     else
                     {
-                        sprintf(strPayOff,"(上%d结算日)", ucDi0);
+                        sprintf(strPayOff,"(Date de règlement précédente %d)", ucDi0);
                     }
                     
-                    para.payoff = (E_D07_PARA_PAYOFF)(ucDi0 + 1); /* 结算日 */
+                    para.payoff = (E_D07_PARA_PAYOFF)(ucDi0 + 1); /* date de la facture */
                     len        = 27;
                     format     = E_D07_FMT_RECD_VOLT_PASS_PERCENT;    
                     func     = trans_d07_data_recd_volt_pass_percent;
@@ -3669,28 +3669,28 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         case 0: // [03]{10}{00}[*]
                         {
                             type     = E_D07_RULER_TYPE_VOLT_PASS_PERCENT_M;
-                            sprintf(name_1, "电压合格率统计数据");
+                            sprintf(name_1, "Statistiques sur la conformité de la tension");
                         }
                         break;
                         
                         case 1:// [03]{10}{01}[*]
                         {
                             type     = E_D07_RULER_TYPE_PHASE_A_VOLT_PASS_PERCENT_M;
-                            sprintf(name_1, "A相电压合格率统计数据");
+                            sprintf(name_1, "Statistiques sur le taux de passage de la tension de la phase A");
                         }
                         break;
                         
                         case 2:// [03]{10}{02}[*]
                         {
                             type     = E_D07_RULER_TYPE_PHASE_B_VOLT_PASS_PERCENT_M;
-                            sprintf(name_1, "C相电压合格率统计数据");
+                            sprintf(name_1, "Statistiques sur le taux de passage de la tension de la phase C");
                         }
                         break;
                         
                         case 3:// [03]{10}{03}[*]
                         {
                             type     = E_D07_RULER_TYPE_PHASE_C_VOLT_PASS_PERCENT_M;
-                            sprintf(name_1, "C相电压合格率统计数据");
+                            sprintf(name_1, "Statistiques sur le taux de passage de la tension de la phase C");
                         }
                         break;
 
@@ -3714,7 +3714,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             len        = 3;
                             format     = E_D07_FMT_XXXXXX;    
                             func     = trans_d07_data_XXXXXX;
-                            sprintf(name_1, "掉电总次数");
+                            sprintf(name_1, "Nombre total de mises hors tension");
                         }
                         else if(ucDi0 >= 1 && ucDi0 <= 0x0A) // [03][11][00]{(1~A)}
                         {
@@ -3723,7 +3723,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                             format     = E_D07_FMT_YYMMDDhhmmss_2;    
                             para.last = (E_D07_PARA_LAST)ucDi0;
                             func     = trans_d07_data_YYMMDDhhmmss_2;
-                            sprintf(name_1, "(上%d次)掉电发生时刻, 结束时刻",ucDi0);
+                            sprintf(name_1, "((%d times above) Début et fin de la mise hors tension",ucDi0);
                         }
                         else // [03][11][00]{!(0~A)}
                         {
@@ -3743,7 +3743,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 12;
                                 format     = E_D07_FMT_XXXXXX_6;    
                                 func     = trans_d07_data_XXXXXX_6;
-                                sprintf(name_1, "需量超限总次数记录");
+                                sprintf(name_1, "Enregistrement du nombre total de dépassements de la demande");
                             }
                             else // [03][12][00]{!(00)}
                             {
@@ -3761,7 +3761,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)正向有功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Previous%d times) Forward active demand overrun record",ucDi0);
                             }
                             else    // [03][12][01]{!(1~A)}
                             {
@@ -3779,7 +3779,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)反向有功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Previous%d times)Reverse active demand overrun record",ucDi0);
                             }
                             else    // [03][12][02]{!(1~A)}
                             {
@@ -3797,7 +3797,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)第1象限无功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Previous%d times)Quadrant 1 Reactive Demand Exceeded Limit Record",ucDi0);
                             }
                             else    // [03][12][03]{!(1~A)}
                             {
@@ -3815,7 +3815,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)第2象限无功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Up%d times)Quadrant 2 reactive demand overrun record",ucDi0);
                             }
                             else    // [03][12][04]{!(1~A)}
                             {
@@ -3833,7 +3833,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)第3象限无功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Upper %d times) Quadrant 3 reactive power demand exceeded record",ucDi0);
                             }
                             else    // [03][12][05]{!(1~A)}
                             {
@@ -3851,7 +3851,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_YYMMDDhhmmss_2_XX_XXXX_YYMMDDhhmm;
-                                sprintf(name_1, "(上%d次)第4象限无功需量超限记录",ucDi0);
+                                sprintf(name_1, "(Up%d times) Quadrant 4 Reactive Demand Exceeded Limit Record",ucDi0);
                             }
                             else    // [03][12][06]{!(1~A)}
                             {
@@ -3878,7 +3878,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "编程总次数");
+                                sprintf(name_1, "Total number of programming");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][00]{(1~A)}
                             {
@@ -3887,7 +3887,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_METER_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_meter_prog;
-                                sprintf(name_1, "(上%d次)编程记录",ucDi0);
+                                sprintf(name_1, "(Previous %d times) Programming records",ucDi0);
                             }
                             else    // [03][30][00]{!(1~A)}
                             {
@@ -3904,7 +3904,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "电表清零总次数");
+                                sprintf(name_1, "Total number of times the meter is zeroed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][01]{(1~A)}
                             {
@@ -3913,7 +3913,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_METER_CLEAR;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_meter_clear;
-                                sprintf(name_1, "(上%d次)电表清零记录",ucDi0);
+                                sprintf(name_1, "(Previous%d times) Meter zeroing records",ucDi0);
                             }
                             else    // [03][30][01]{!(1~A)}
                             {
@@ -3931,7 +3931,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "需量清零总次数");
+                                sprintf(name_1, "Total number of demand zeroes");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][02]{(1~A)}
                             {
@@ -3940,7 +3940,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_DEAMD_CLEAR;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_demand_clear;
-                                sprintf(name_1, "(上%d次)需量清零记录",ucDi0);
+                                sprintf(name_1, "Requirements clearing record (last %d times)",ucDi0);
                             }
                             else    // [03][30][02]{!(1~A)}
                             {
@@ -3958,7 +3958,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "事件清零总次数");
+                                sprintf(name_1, "Total number of events cleared");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][03]{(1~A)}
                             {
@@ -3967,7 +3967,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_EVENT_CLEAR;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_event_clear;
-                                sprintf(name_1, "(上%d次)事件清零记录", ucDi0);
+                                sprintf(name_1, "(Previous%d) Event Clearance Records", ucDi0);
                             }
                             else    // [03][30][03]{!(1~A)}
                             {
@@ -3984,7 +3984,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "校时总次数");
+                                sprintf(name_1, "Total number of calibrations");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][04]{(1~A)}
                             {
@@ -3993,7 +3993,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_ADJUST_TIME;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_adjust_time;
-                                sprintf(name_1, "(上%d次)校时记录", ucDi0);
+                                sprintf(name_1, "Record of (last %d) calibrations", ucDi0);
                             }
                             else    // [03][30][04]{!(1~A)}
                             {
@@ -4010,7 +4010,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "时段表编程总次数");
+                                sprintf(name_1, "Total number of times the timesheet has been programmed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][05]{(1~A)}
                             {
@@ -4019,7 +4019,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_PART_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_part_prog;
-                                sprintf(name_1, "(上%d次)时段表编程记录", ucDi0);
+                                sprintf(name_1, "Programming records for time table (last %d time)", ucDi0);
                             }
                             else    // [03][30][05]{!(1~A)}
                             {
@@ -4037,7 +4037,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "时区表编程总次数");
+                                sprintf(name_1, "Total number of times the time zone table has been programmed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][06]{(1~A)}
                             {
@@ -4046,7 +4046,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_ZONE_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_zone_prog;
-                                sprintf(name_1, "(上%d次)时区表编程记录", ucDi0);
+                                sprintf(name_1, "(Previous%d) Time Zone Table Programming Records", ucDi0);
                             }
                             else    // [03][30][06]{!(1~A)}
                             {
@@ -4064,7 +4064,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "周休日编程总次数");
+                                sprintf(name_1, "Total number of weekly off-day programming");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][07]{(1~A)}
                             {
@@ -4073,7 +4073,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_WEEKDAY_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_weekday_prog;
-                                sprintf(name_1, "(上%d次)周休日编程记录", ucDi0);
+                                sprintf(name_1, "(Previous%d) Weekly Off Day Programming Records", ucDi0);
                             }
                             else    // [03][30][07]{!(1~A)}
                             {
@@ -4098,7 +4098,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_HOLIDAY_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_holiday_prog;
-                                sprintf(name_1, "(上%d次)节假日编程记录", ucDi0);
+                                sprintf(name_1, "Holiday programming records (last %d)", ucDi0);
                             }
                             else    // [03][30][08]{!(1~A)}
                             {
@@ -4115,7 +4115,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "有功组合方式编程总次数");
+                                sprintf(name_1, "Total number of active combination methods programmed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][09]{(1~A)}
                             {
@@ -4124,7 +4124,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_POWER_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_power_prog;
-                                sprintf(name_1, "(上%d次)有功组合方式编程记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times) Active Combination Mode Programming Records", ucDi0);
                             }
                             else    // [03][30][09]{!(1~A)}
                             {
@@ -4141,7 +4141,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "无功组合方式1编程总次数");
+                                sprintf(name_1, "Total number of times reactive power combination mode 1 is programmed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][0A]{(1~A)}
                             {
@@ -4150,7 +4150,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_POWER_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_power_prog;
-                                sprintf(name_1, "(上%d次)无功组合方式1编程记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times) Programming record for reactive power combination mode 1", ucDi0);
                             }
                             else    // [03][30][0A]{!(1~A)}
                             {
@@ -4167,7 +4167,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "无功组合方式2编程总次数");
+                                sprintf(name_1, "Total number of times reactive power combination mode 2 is programmed");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][0B]{(1~A)}
                             {
@@ -4176,7 +4176,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_POWER_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_power_prog;
-                                sprintf(name_1, "(上%d次)无功组合方式2编程记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times) Reactive Combination Mode 2 Programming Records", ucDi0);
                             }
                             else    // [03][30][0B]{!(1~A)}
                             {
@@ -4193,7 +4193,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "结算日编程总次数");
+                                sprintf(name_1, "Total number of times programmed on the settlement date");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][0C]{(1~A)}
                             {
@@ -4202,7 +4202,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_PAYOFF_PROG;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_payoff_prog;
-                                sprintf(name_1, "(上%d次)结算日编程记录", ucDi0);
+                                sprintf(name_1, "Programming records on the (last %d) settlement date", ucDi0);
                             }
                             else    // [03][30][0C]{!(1~A)}
                             {
@@ -4219,7 +4219,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "开表盖总次数");
+                                sprintf(name_1, "Total number of times the meter cover was opened");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][0D]{(1~A)}
                             {
@@ -4228,7 +4228,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_OPEN_METER_CAP;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_open_meter_cap;
-                                sprintf(name_1, "(上%d次)开表盖记录", ucDi0);
+                                sprintf(name_1, "Record of meter cover opening (last %d time)", ucDi0);
                             }
                             else    // [03][30][0D]{!(1~A)}
                             {
@@ -4246,7 +4246,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 3;
                                 format     = E_D07_FMT_XXXXXX;    
                                 func     = trans_d07_data_XXXXXX;
-                                sprintf(name_1, "开端钮盒总次数");
+                                sprintf(name_1, "Total number of open knob boxes");
                             }
                             else if(ucDi0 >= 1 && ucDi0 <= 0x0A)// [03][30][0E]{(1~A)}
                             {
@@ -4255,7 +4255,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 format     = E_D07_FMT_RECD_OPEN_BTN_BOX;    
                                 para.last = (E_D07_PARA_LAST)ucDi0;
                                 func     = trans_d07_data_recd_open_btn_box;
-                                sprintf(name_1, "(上%d次)开端钮盒记录", ucDi0);
+                                sprintf(name_1, "(Previous %d times) Start button box recording", ucDi0);
                             }
                             else    // [03][30][0E]{!(1~A)}
                             {
@@ -4278,11 +4278,11 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
         break;
 
 
-        /* 对应表A.5参变量数据标识编码表 */
+        /* Corresponds to Table A.5 Parametric Variable Data Identification Coding Table */
         case 4: //{04}[*][*][*]
         {
-            /* 对表A.5 相同数据的初始化 */
-            para.payoff = E_D07_PAYOFF_NULL; /* 结算日 */
+            /* Initialization of the same data as in Table A.5 */
+            para.payoff = E_D07_PAYOFF_NULL; /* invoice date */
             para.rate    = E_D07_RATE_NULL;
             para.harm    = E_D07_HARM_NULL;
             para.last    = E_D07_LAST_NULL;
@@ -4307,7 +4307,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 4;
                                     format     = E_D07_FMT_YYMMDDWW;    
                                     func     = trans_d07_data_YYMMDDWW;
-                                    sprintf(name_1, "日期及星期（其中0代表星期天)");
+                                    sprintf(name_1, "Date and day of the week (where 0 is Sunday)");
                                 }
                                 break;
 
@@ -4317,7 +4317,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_hhmmss;    
                                     func     = trans_d07_data_hhmmss;
-                                    sprintf(name_1, "时间");
+                                    sprintf(name_1, "timing");
                                 }
                                 break;
 
@@ -4327,7 +4327,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "最大需量周期");
+                                    sprintf(name_1, "Maximum demand cycle");
                                 }
                                 break;
                                 case 4: // [04][00][01]{04}
@@ -4336,7 +4336,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "滑差时间");
+                                    sprintf(name_1, "Slip Time");
                                 }
                                 break;
                                 case 5: // [04][00][01]{05}
@@ -4345,7 +4345,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_XXXX;    
                                     func     = trans_d07_data_XXXX;
-                                    sprintf(name_1, "滑差时间");
+                                    sprintf(name_1, "Slip time");
                                 }
                                 break;
                                 
@@ -4365,7 +4365,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 5;
                                     format     = E_D07_FMT_YYMMDDhhmm;    
                                     func     = trans_d07_data_YYMMDDhhmm;
-                                    sprintf(name_1, "两套日时段表切换时间");
+                                    sprintf(name_1, "Two sets of time zone tables switching time");
 
                                 }
                                 break;
@@ -4386,7 +4386,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "年时区数p(p <= 14)");
+                                    sprintf(name_1, "Number of time zones per yearp(p <= 14)");
                                 }
                                 break;
 
@@ -4396,7 +4396,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "日时段表数 q <= 8");
+                                    sprintf(name_1, "Number of daily time slots q <= 8");
                                 }
                                 break;
                                 
@@ -4406,7 +4406,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "日时段数(每日切换数)m <=14");
+                                    sprintf(name_1, "Number of daily slots (number of daily switchings)m <=14");
                                 }
                                 break;
 
@@ -4416,7 +4416,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "费率数 k <= 63");
+                                    sprintf(name_1, "Number of tariffs k <= 63");
                                 }
                                 break;
 
@@ -4426,7 +4426,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 2;
                                     format     = E_D07_FMT_NNNN;    
                                     func     = trans_d07_data_NNNN;
-                                    sprintf(name_1, "年时区数p(p <= 14)");
+                                    sprintf(name_1, "Number of time zones per year p(p <= 14)");
                                 }
                                 break;
                                 
@@ -4436,7 +4436,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "谐波分析次数");
+                                    sprintf(name_1, "Number of harmonic analyses");
                                 }
                                 break;
                                 
@@ -4456,7 +4456,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "自动循环显示屏数");
+                                    sprintf(name_1, "Number of auto-cycling displays");
                                 }
                                 break;
                                 
@@ -4466,7 +4466,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "每屏显示时间");
+                                    sprintf(name_1, "Display time per screen");
                                 }
                                 break;
                                 
@@ -4476,7 +4476,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "显示电能小数位数");
+                                    sprintf(name_1, "Display the number of decimal digits of electrical energy");
                                 }
                                 break;
                                 
@@ -4486,7 +4486,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "显示最大需量小数位数");
+                                    sprintf(name_1, "Displays the maximum required number of decimal digits");
                                 }
                                 break;
                                 case 5: // [04][00][03]{05}
@@ -4495,7 +4495,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 1;
                                     format     = E_D07_FMT_NN;    
                                     func     = trans_d07_data_NN;
-                                    sprintf(name_1, "按键循环显示屏数");
+                                    sprintf(name_1, "Number of cyclic menu displays");
                                 }
                                 break;
                                 
@@ -4516,7 +4516,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 6;
                                     format     = E_D07_FMT_NN_6;    
                                     func     = trans_d07_data_NN_6;
-                                    sprintf(name_1, "按键循环显示屏数");
+                                    sprintf(name_1, "No. of cyclic menu displays");
                                 }
                                 break;
                                 
@@ -4526,7 +4526,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 6;
                                     format     = E_D07_FMT_NN_6;    
                                     func     = trans_d07_data_NN_6;
-                                    sprintf(name_1, "表号");
+                                    sprintf(name_1, "meter ID");
                                 }
                                 break;
                                 
@@ -4536,7 +4536,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 32;
                                     format     = E_D07_FMT_NN_32;    
                                     func     = trans_d07_data_NN_32;
-                                    sprintf(name_1, "资产管理编码");
+                                    sprintf(name_1, "Asset management code");
                                 }
                                 break;
                                 
@@ -4546,7 +4546,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 6;
                                     format     = E_D07_FMT_XX_6;    
                                     func     = trans_d07_data_XX_6;
-                                    sprintf(name_1, "额定电压");
+                                    sprintf(name_1, "nominal voltage");
                                 }
                                 break;
                                 
@@ -4556,7 +4556,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 6;
                                     format     = E_D07_FMT_XX_6;    
                                     func     = trans_d07_data_XX_6;
-                                    sprintf(name_1, "额定电流");
+                                    sprintf(name_1, "nominal current");
                                     
                                 }
                                 break;
@@ -4567,7 +4567,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 6;
                                     format     = E_D07_FMT_XX_6;    
                                     func     = trans_d07_data_XX_6;
-                                    sprintf(name_1, "最大电流");
+                                    sprintf(name_1, "Maximum current");
                                 }
                                 break;
                                 
@@ -4577,7 +4577,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 4;
                                     format     = E_D07_FMT_XX_4;    
                                     func     = trans_d07_data_XX_4;
-                                    sprintf(name_1, "有功准确度等级");
+                                    sprintf(name_1, "Active Accuracy Class");
                                 }
                                 break;
                                 
@@ -4587,7 +4587,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 4;
                                     format     = E_D07_FMT_XX_4;    
                                     func     = trans_d07_data_XX_4;
-                                    sprintf(name_1, "无功准确度等级");
+                                    sprintf(name_1, "Reactive power accuracy class");
                                 }
                                 break;
                                 
@@ -4597,7 +4597,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_XX_3;    
                                     func     = trans_d07_data_XX_3;
-                                    sprintf(name_1, "电表有功常数");
+                                    sprintf(name_1, "Meter active power constant");
                                 }
                                 break;
                                 
@@ -4607,7 +4607,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 3;
                                     format     = E_D07_FMT_XX_3;    
                                     func     = trans_d07_data_XX_3;
-                                    sprintf(name_1, "电表无功常数");
+                                    sprintf(name_1, "Meter reactive power constant");
                                 }
                                 break;
                                 
@@ -4617,7 +4617,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 10;
                                     format     = E_D07_FMT_XX_10;    
                                     func     = trans_d07_data_XX_10;
-                                    sprintf(name_1, "电表型号");
+                                    sprintf(name_1, "Meter Model");
                                 }
                                 break;
                                 
@@ -4627,7 +4627,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 10;
                                     format     = E_D07_FMT_XX_10;    
                                     func     = trans_d07_data_XX_10;
-                                    sprintf(name_1, "生产日期");
+                                    sprintf(name_1, "Date of Manufacture");
                                 }
                                 break;
                                 
@@ -4637,7 +4637,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                     len        = 16;
                                     format     = E_D07_FMT_XX_16;    
                                     func     = trans_d07_data_XX_16;
-                                    sprintf(name_1, "生产日期");
+                                    sprintf(name_1, "Meter version");
                                 }
                                 break;
                                 
@@ -4656,7 +4656,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 16;
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "电表运行状态字数据块");
+                                sprintf(name_1, "Meter operation status word data block");
                             }
                             else if(ucDi0 >=1 && ucDi0 <= 7) // [04][00][05]{(1~7)}
                             {
@@ -4665,7 +4665,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                                 len        = 2;
                                 format     = E_D07_FMT_XX_XX;    
                                 func     = trans_d07_data_XX_XX;
-                                sprintf(name_1, "电表运行状态字 %d", ucDi0);
+                                sprintf(name_1, "Meter operation status word %d", ucDi0);
                             }
                             else    // [04][00][05]{!(FF,1~7)}
                             {
@@ -5708,7 +5708,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     }
                 }
                 break;
-                
+            /* ===============================   Fin traduction Lionnel ===========================================*/    
                 case 3: // [05]{03}[*][*]
                 {
                    if(ucDi0 > 2)
