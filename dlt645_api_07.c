@@ -708,11 +708,11 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
             // 封装结算日字符串     Encapsulated settlement date string
             if(ucDi0 == 0)
             {
-                sprintf(strPayOff, "%s", "(当前)");        
+                sprintf(strPayOff, "%s", "(Actuel)");        
             }
             else
             {
-                sprintf(strPayOff, "(上%d结算日)", ucDi0);
+                sprintf(strPayOff, "(Date de règlement précédente %d)", ucDi0);
             }
 
             /* 对于表 A.1 相同的数据属性 For the same data attributes as in Table A.1 */
@@ -790,7 +790,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_BACK_HAVE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Reverse Active Rate%d电能", ucDi1);
+                        sprintf(name_1, "Reverse Active Rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][02]{FF}[*]
                     {                        
@@ -815,7 +815,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_1_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Combined reactive 1 rate%d电能", ucDi1);
+                        sprintf(name_1, "Combined reactive 1 rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][03]{FF}[*]
                     {                        
@@ -841,7 +841,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_COMB_NONE_2_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Combined reactive 2 rate%d电能", ucDi1);
+                        sprintf(name_1, "Combined reactive 2 rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][04]{FF}[*]
                     {                        
@@ -867,7 +867,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_QUAD_1_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "First Quadrant Reactive Rate%d电能", ucDi1);
+                        sprintf(name_1, "First Quadrant Reactive Rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][05]{FF}[*]
                     {                        
@@ -893,7 +893,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_QUAD_2_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Quadrant 2 reactive energy rate%d电能", ucDi1);
+                        sprintf(name_1, "Quadrant 2 reactive energy rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][06]{FF}[*]
                     {                        
@@ -919,7 +919,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_QUAD_3_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Third Quadrant Reactive Rate%d电能", ucDi1);
+                        sprintf(name_1, "Third Quadrant Reactive Rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][07]{FF}[*]
                     {                        
@@ -945,7 +945,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_QUAD_4_NONE_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Quadrant 4 Reactive Rate%d电能", ucDi1);
+                        sprintf(name_1, "Quadrant 4 Reactive Rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][08]{FF}[*]
                     {                        
@@ -971,7 +971,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                     {
                         type = E_D07_RULER_TYPE_FORTH_APPARENT_POWER_RATE;
                         para.rate    = (E_D07_PARA_RATE)ucDi1;
-                        sprintf(name_1, "Positive Apparent Rate%d电能", ucDi1);
+                        sprintf(name_1, "Positive Apparent Rate %d Power", ucDi1);
                     }
                     else if(0xFF == ucDi1) //[00][09]{FF}[*]
                     {                        
