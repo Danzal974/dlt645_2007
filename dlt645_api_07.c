@@ -12634,18 +12634,18 @@ eD07Err trans_d07_data_recd_open_btn_box(E_D07_TRANS_FLG flag, char *user, char 
     return trans_d07_data_recd_open_meter_cap(flag, user, frame);
 }
 
-
 /*****************************************************************************
  函 数 名  : trans_d07_data_err
  功能描述  : 错误状态字转换函数
- 输入参数  : E_D07_TRANS_FLG flag  
-             char *user            
-             char *frame           
+            Error status word conversion function
+ 输入参数  : E_D07_TRANS_FLG flag
+             char *user
+             char *frame
  输出参数  : 无
- 返 回 值  : 
- 调用函数  : 
- 被调函数  : 
- 
+ 返 回 值  :
+ 调用函数  :
+ 被调函数  :
+
  修改历史      :
   1.日    期   : 2013年1月5日
     作    者   : liming
@@ -12693,24 +12693,24 @@ eD07Err trans_d07_data_err(E_D07_TRANS_FLG flag, char *user, char *frame)
         psErr->bNoneReq  = (ucErr & 0x02) ? TRUE : FALSE;
         psErr->bOtherErr = (ucErr & 0x01) ? TRUE : FALSE;
 
-        //显示信息
-        #ifdef D07_DEBUG_ON
-        sprintf(g_out_data_07, 
-        "费率数超: \t%s\n"
-        "日时段数超: \t%s\n"
-        "年时区数超: \t%s\n"
-        "通讯速率不能更改: \t%s\n"
-        "密码错/未授权: \t%s\n"
-        "无请求数据: \t%s\n"
-        "其他错误: \t%s\n", 
-        psErr->bRateErr  == TRUE ? "有" : "无",
-        psErr->bDayErr   == TRUE ? "有" : "无",
-        psErr->bYearErr  == TRUE ? "有" : "无",
-        psErr->bCommErr  == TRUE ? "有" : "无",
-        psErr->bPwdErr   == TRUE ? "有" : "无",
-        psErr->bNoneReq  == TRUE ? "有" : "无",
-        psErr->bOtherErr == TRUE ? "有" : "无");
-        #endif
+// 显示信息 Display Information
+#ifdef D07_DEBUG_ON
+        sprintf(g_out_data_07,
+                "Total number of rates exceeded: \t%s\n"
+                "Total number of daily slots exceeded: \t%s\n"
+                "Number of annual time zones exceeded: \t%s\n"
+                "Communication rate cannot be changed: \t%s\n"
+                "Wrong password/unauthorized: \t%s\n"
+                "No request data: \t%s\n"
+                "Other errors: \t%s\n",
+                psErr->bRateErr == TRUE ? "yes" : "no",
+                psErr->bDayErr == TRUE ? "yes" : "no",
+                psErr->bYearErr == TRUE ? "yes" : "no",
+                psErr->bCommErr == TRUE ? "yes" : "no",
+                psErr->bPwdErr == TRUE ? "yes" : "no",
+                psErr->bNoneReq == TRUE ? "yes" : "no",
+                psErr->bOtherErr == TRUE ? "yes" : "no");
+#endif
     }
     
     return E_D07_OK;
