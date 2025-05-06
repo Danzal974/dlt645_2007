@@ -3649,7 +3649,7 @@ INT32 get_d07_ruler_info(UINT32 rulerID, S_D07_RULER_INFO *outRulerInfo)
                         return E_D07_ERRO_UNKOWN_ID;
                     }
                     
-                    // Chaîne de la date de règlement encapsulée    
+                    // Cha?0?6ne de la date de règlement encapsulée    
                     if(ucDi0 == 0)
                     {
                         sprintf(strPayOff, "%s", "(être confronté)");        
